@@ -4,9 +4,9 @@
 
 **Unofficial, not affiliated or endorsed by British/Scottish/Welsh Cycling.**
 
-Library to automate aspects of British Cycling's Membership Manager
-system, in order to simplify administration for clubs using it.
-It probably works for Scottish/Welsh Cycling clubs too, but this hasn't been tested.
+Library to automate aspects of British Cycling's Club Management Tool, in order to
+simplify administration for clubs using it. It probably works for Scottish/Welsh
+Cycling clubs too, but this hasn't been tested.
 
 
 Priority is to enable useful email reports/notifications to club administrators.
@@ -21,8 +21,10 @@ executable is on the system PATH. Originally intended to be deployed on the
 [PythonAnywhere](https://www.pythonanywhere.com/) platform, which covers this
 requirement out-of-the box.
 
+- Credentials for a club using the Club Management Tool
+
 ## Example script
 
-`example.py` loads credentials from `config.ini` (populate and rename from
-`config_dist.ini`), retrieves and prints club member
-counts. This takes about 10s.
+`example.py` loads credentials from `config.ini` (you'll need to copy, rename and
+populate `config_dist.ini`). It then retrieves and prints the number of active,
+expired and new/pending club member counts. This takes about 10s.
