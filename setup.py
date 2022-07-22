@@ -6,7 +6,7 @@ Based on https://github.com/pypa/sampleproject/blob/main/setup.py
 import pathlib
 
 # Always prefer setuptools over distutils
-from setuptools import setup
+from setuptools import setup, find_packages
 
 here = pathlib.Path(__file__).parent.resolve()
 
@@ -30,4 +30,5 @@ setup(
     ],
     python_requires=">=3.7, <4",
     install_requires=["selenium<4.3.0"],
+    packages=find_packages(where="britishcycling-clubs"),
 )
