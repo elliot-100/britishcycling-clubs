@@ -23,6 +23,20 @@ requirement out-of-the box.
 
 - Credentials for a club using the Club Management Tool
 
+## Installation
+
+Not yet available at PyPI. Install from GitHub, e.g:
+
+`
+pip install git+https://github.com/elliot-100/britishcycling-clubs.git#egg=britishcycling-clubs
+`
+
+Or for a specific version:
+
+`
+pip install git+https://github.com/elliot-100/britishcycling-clubs.git@v0.0.3#egg=britishcycling-clubs
+`
+
 ## Example script
 
 `example.py` loads credentials from `config.ini` (you'll need to copy, rename and
