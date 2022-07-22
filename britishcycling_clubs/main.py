@@ -2,6 +2,7 @@ import time
 from typing import Dict
 
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 
 MANAGER_BASE_URL = "https://www.britishcycling.org.uk/uac/connect?success_url=/dashboard/club/membership?club_id="
@@ -47,9 +48,9 @@ def get_member_counts(club_id: str, username: str, password: str) -> Dict[str, i
 
     # login page
     driver.get(club_url)
-    username_field = driver.find_element_by_id("username2")
-    password_field = driver.find_element_by_id("password2")
-    login_button = driver.find_element_by_id("login_button")
+    username_field = driver.find_element(By.ID, "username2")
+    password_field = driver.find_element(By.ID, "password2")
+    login_button = driver.find_element(By.ID, "login_button")
 
     username_field.send_keys(username)
     password_field.send_keys(password)
@@ -59,9 +60,9 @@ def get_member_counts(club_id: str, username: str, password: str) -> Dict[str, i
     # allow time for club manager page to load fully
     time.sleep(INTER_PAGE_DELAY)
     member_counts = {
-        "active": driver.find_element_by_id("members-active-count").text,
-        "pending": driver.find_element_by_id("members-new-count").text,
-        "expired": driver.find_element_by_id("members-expired-count").text,
+        "active": driver.find_element(By.ID, "members-active-count").text,
+        "pending": driver.find_element(By.ID, "members-new-count").text,
+        "expired": driver.find_element(By.ID, "members-expired-count").text,
     }
 
     # values will be blank if there aren't any members, although they appear

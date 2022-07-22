@@ -29,6 +29,6 @@ setup(
         "Programming Language :: Python :: 3 :: Only",
     ],
     python_requires=">=3.7, <4",
-    install_requires=["selenium<4.3.0"],
+    install_requires=["selenium>=3.8.0"],
     packages=find_packages(where="britishcycling-clubs"),
 )
