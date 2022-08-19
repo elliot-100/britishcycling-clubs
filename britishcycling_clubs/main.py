@@ -39,8 +39,9 @@ def get_member_counts(club_id: str, username: str, password: str) -> Dict[str, i
         values: corresponding ints
     """
     chrome_options = webdriver.ChromeOptions()
-    chrome_options.add_argument("--headless")
-    chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--headless")  # PythonAnywhere requirement
+    chrome_options.add_argument("--disable-gpu")   # PythonAnywhere requirement
+    chrome_options.add_argument("--no_sandbox")   # PythonAnywhere requirement
     driver = webdriver.Chrome(options=chrome_options)
     action = ActionChains(driver)
 
