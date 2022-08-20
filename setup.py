@@ -15,7 +15,7 @@ long_description = (here / "README.md").read_text(encoding="utf-8")
 
 setup(
     name="britishcycling-clubs",
-    version="0.0.4",
+    version="0.0.5",
     description="Unofficial library to automate aspects of British/Scottish/Welsh Cycling's club Membership Manager system",
     long_description_content_type="text/markdown",
     url="https://https://github.com/elliot-100/britishcycling-clubs",
