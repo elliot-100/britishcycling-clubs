@@ -40,8 +40,8 @@ def get_member_counts(club_id: str, username: str, password: str) -> Dict[str, i
     """
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument("--headless")  # PythonAnywhere requirement
-    chrome_options.add_argument("--disable-gpu")   # PythonAnywhere requirement
-    chrome_options.add_argument("--no_sandbox")   # PythonAnywhere requirement
+    chrome_options.add_argument("--disable-gpu")  # PythonAnywhere requirement
+    chrome_options.add_argument("--no_sandbox")  # PythonAnywhere requirement
     driver = webdriver.Chrome(options=chrome_options)
     action = ActionChains(driver)
 
@@ -60,7 +60,7 @@ def get_member_counts(club_id: str, username: str, password: str) -> Dict[str, i
 
     # allow time for club manager page to load fully
     time.sleep(INTER_PAGE_DELAY)
-    member_counts = {
+    member_counts_raw = {
         "active": driver.find_element(By.ID, "members-active-count").text,
         "pending": driver.find_element(By.ID, "members-new-count").text,
         "expired": driver.find_element(By.ID, "members-expired-count").text,
@@ -68,7 +68,9 @@ def get_member_counts(club_id: str, username: str, password: str) -> Dict[str, i
 
     # values will be blank if there aren't any members, although they appear
     # as zeros during page load
-    for key, value in member_counts.items():
-        member_counts[key] = 0 if value == "" else int(value)
+    member_counts = {
+        key: 0 if value == "" else int(value)
+        for key, value in member_counts_raw.items()
+    }
     driver.quit()
     return member_counts
