@@ -1,3 +1,21 @@
+[tool.poetry]
+name = "britishcycling-clubs"
+version = "0.0.5"
+description = "Unofficial library to automate aspects of British/Scottish/Welsh Cycling's club Membership Manager system"
+authors = ["elliot-100 <3186037+elliot-100@users.noreply.github.com>"]
+readme = "README.md"
+homepage = "https://https://github.com/elliot-100/britishcycling-clubs"
+repository = "https://https://github.com/elliot-100/britishcycling-clubs"
+packages = [{include = "britishcycling_clubs"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+selenium = ">=3.8.0"
+
+[tool.poetry.group.dev.dependencies]
+pylint = "^2.15.9"
+black = "^22.12.0"
+
 [build-system]
-requires = ["setuptools"]
-build-backend = "setuptools.build_meta"
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
