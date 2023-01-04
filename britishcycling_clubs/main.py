@@ -4,19 +4,21 @@ Functions to retrieve club member counts
 
 import time
 from typing import Dict
-import requests
-from bs4 import BeautifulSoup, Tag, NavigableString
 
+import requests
+from bs4 import BeautifulSoup, NavigableString, Tag
 from selenium import webdriver
-from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.by import By
 
 PROFILE_BASE_URL = "https://www.britishcycling.org.uk/club/profile/"
 MANAGER_BASE_URL = "https://www.britishcycling.org.uk/uac/connect?success_url=/dashboard/club/membership?club_id="
 INTER_PAGE_DELAY = 5
 
 
-def get_private_member_counts(club_id: str, username: str, password: str) -> Dict[str, int]:
+def get_private_member_counts(
+    club_id: str, username: str, password: str
+) -> Dict[str, int]:
     """
     Determine how many active, pending and expired members from the club manager page.
 
