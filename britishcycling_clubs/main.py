@@ -1,17 +1,20 @@
 import time
 from typing import Dict
+import requests
+from bs4 import BeautifulSoup, Tag, NavigableString
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 
+PROFILE_BASE_URL = "https://www.britishcycling.org.uk/club/profile/"
 MANAGER_BASE_URL = "https://www.britishcycling.org.uk/uac/connect?success_url=/dashboard/club/membership?club_id="
 INTER_PAGE_DELAY = 5
 
 
 def get_member_counts(club_id: str, username: str, password: str) -> Dict[str, int]:
     """
-    Determine how many active, pending and expired members.
+    Determine how many active, pending and expired members from the club manager page.
 
     This is a slow operation (circa 10s), so get them all in one go.
     From the club manager page, return the values from these tabs:
@@ -74,3 +77,42 @@ def get_member_counts(club_id: str, username: str, password: str) -> Dict[str, i
     }
     driver.quit()
     return member_counts
+
+
+def get_public_member_count(club_id: str) -> int:
+    """
+    Return the most specific tag possible containing the member count from the club's
+    profile page.
+
+    e.g. from:
+
+    ...
+    <div id="about">
+        ...
+        <p><b>Total club members:</b> nnn<br/></p>
+        ...
+    </div>
+    ...
+
+    return:
+
+    <p><b>Total club members:</b> nnn<br/></p>
+
+    """
+
+    profile_page = requests.get(f"{PROFILE_BASE_URL}{club_id}/")
+    soup = BeautifulSoup(profile_page.content, "html.parser")
+    about_div = soup.find("div", id="about")
+    assert isinstance(about_div, Tag)
+
+    member_count_label = about_div.find(string="Total club members:")
+    assert isinstance(member_count_label, NavigableString)
+
+    member_count_label_outer = member_count_label.parent
+    assert isinstance(member_count_label_outer, Tag)
+
+    member_count_label_outer2 = member_count_label_outer.parent
+    assert isinstance(member_count_label_outer2, Tag)
+
+    strings = list(member_count_label_outer2.strings)
+    return int(strings[-1])
