@@ -15,7 +15,7 @@ config_filepath = Path(__file__).with_name(CONFIG_FILE)
 config.read_file(open(config_filepath))
 
 
-member_counts = bc.get_member_counts(
+member_counts = bc.get_private_member_counts(
     config["club"]["id"], config["club"]["username"], config["club"]["password"]
 )
 

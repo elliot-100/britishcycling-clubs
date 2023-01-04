@@ -12,7 +12,7 @@ MANAGER_BASE_URL = "https://www.britishcycling.org.uk/uac/connect?success_url=/d
 INTER_PAGE_DELAY = 5
 
 
-def get_member_counts(club_id: str, username: str, password: str) -> Dict[str, int]:
+def get_private_member_counts(club_id: str, username: str, password: str) -> Dict[str, int]:
     """
     Determine how many active, pending and expired members from the club manager page.
 
