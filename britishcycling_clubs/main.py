@@ -1,3 +1,7 @@
+"""
+Functions to retrieve club member counts
+"""
+
 import time
 from typing import Dict
 import requests
@@ -26,8 +30,7 @@ def get_private_member_counts(club_id: str, username: str, password: str) -> Dic
     Parameters
     ----------
     club_id : str
-        From the URL used to access Membership Manager, i.e.
-        'https://www.britishcycling.org.uk/dashboard/club/membership?club_id=xxx'
+        From the URL used to access club pages.
 
     username : str
         Username
@@ -81,22 +84,17 @@ def get_private_member_counts(club_id: str, username: str, password: str) -> Dic
 
 def get_public_member_count(club_id: str) -> int:
     """
-    Return the most specific tag possible containing the member count from the club's
-    profile page.
+    Return the 'Total club members' count from the club's profile page.
 
-    e.g. from:
+    Parameters
+    ----------
+    club_id : str
+        From the URL used to access club pages.
 
-    ...
-    <div id="about">
-        ...
-        <p><b>Total club members:</b> nnn<br/></p>
-        ...
-    </div>
-    ...
-
-    return:
-
-    <p><b>Total club members:</b> nnn<br/></p>
+    Returns
+    -------
+    int
+        Total members count
 
     """
 
