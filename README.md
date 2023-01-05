@@ -39,14 +39,10 @@ pip install git+https://github.com/elliot-100/britishcycling-clubs.git@v0.0.3#eg
 
 You'll need to copy `config_dist.ini`, rename to `config.ini` and populate it with club ID and (optionally) credentials.
 
-`example_public__member_count.py` loads club ID from `config.ini`. It then retrieves and prints the total 
-member count from the club's public profile page.
-
 `example_public_club_info.py` loads club ID from `config.ini`. It then retrieves and
 prints the club name and total member count from the club's public profile page.
 
 `example_private_member_counts.py` loads  club ID and credentials from `config.ini`.
 It then retrieves and prints the number of active, expired and new/pending club member
 counts from the club's Club Manager pages. This takes about 10s.
-
 
