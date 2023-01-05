@@ -1,9 +1,9 @@
 """
-Example script: loads club ID from `config.ini`, retrieves and prints member
-counts.
+Example script: loads club ID from `config.ini`, retrieves and prints public club info.
 """
 
 import configparser
+import pprint
 from pathlib import Path
 
 import britishcycling_clubs.main as bc
@@ -14,6 +14,5 @@ config = configparser.ConfigParser()
 config_filepath = Path(__file__).with_name(CONFIG_FILE)
 config.read_file(open(config_filepath))
 
-
-member_count = bc.get_public_member_count(config["club"]["id"])
-print(member_count)
+info = bc.get_public_club_info(config["club"]["id"])
+pprint.pprint(info)

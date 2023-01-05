@@ -84,9 +84,9 @@ def get_private_member_counts(
     return member_counts
 
 
-def get_public_member_count(club_id: str) -> int:
+def get_public_club_info(club_id: str) -> Dict:
     """
-    Return the 'Total club members' count from the club's profile page.
+    Return information from the club's public profile page.
 
     Parameters
     ----------
@@ -95,13 +95,35 @@ def get_public_member_count(club_id: str) -> int:
 
     Returns
     -------
-    int
-        Total members count
-
+    dict
+        key 'club_name' : str
+        value : str
+        key 'total_members' : str
+        value : int
     """
 
     profile_page = requests.get(f"{PROFILE_BASE_URL}{club_id}/")
-    soup = BeautifulSoup(profile_page.content, "html.parser")
+    profile_soup = BeautifulSoup(profile_page.content, "html.parser")
+    return {
+        "club_name": get_club_name_from_profile(profile_soup),
+        "total_members": get_total_members_from_profile(profile_soup),
+    }
+
+
+def get_club_name_from_profile(soup: BeautifulSoup) -> str:
+    """Return the club's name from BeautifulSoup object."""
+
+    club_name_h1 = soup.find("h1", class_="article__header__title-body__text")
+    # Ensures unambiguous type is passed
+    assert isinstance(club_name_h1, Tag)
+    # Ensures unambiguous type is passed
+    assert isinstance(club_name_h1.string, str)
+    return club_name_h1.string
+
+
+def get_total_members_from_profile(soup: BeautifulSoup) -> int:
+    """Return the club's total members count from BeautifulSoup object."""
+
     about_div = soup.find("div", id="about")
     # AssertionError is raised if page other than a club profile page is returned
     # e.g. club_id is incorrect; club's profile is offline pending reaffiliation
