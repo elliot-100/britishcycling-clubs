@@ -103,15 +103,21 @@ def get_public_member_count(club_id: str) -> int:
     profile_page = requests.get(f"{PROFILE_BASE_URL}{club_id}/")
     soup = BeautifulSoup(profile_page.content, "html.parser")
     about_div = soup.find("div", id="about")
+    # AssertionError is raised if page other than a club profile page is returned
+    # e.g. club_id is incorrect; club's profile is offline pending reaffiliation
+    # Consider checking URL returned as a more explicit check
     assert isinstance(about_div, Tag)
 
+    # AssertionError raised if string is not found as exact tag content
     member_count_label = about_div.find(string="Total club members:")
     assert isinstance(member_count_label, NavigableString)
 
     member_count_label_outer = member_count_label.parent
+    # Not expected to raise, but ensures unambiguous type is passed
     assert isinstance(member_count_label_outer, Tag)
 
     member_count_label_outer2 = member_count_label_outer.parent
+    # Not expected to raise, but ensures unambiguous type is passed
     assert isinstance(member_count_label_outer2, Tag)
 
     strings = list(member_count_label_outer2.strings)
