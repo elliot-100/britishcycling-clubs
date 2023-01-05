@@ -13,9 +13,9 @@ administrators.
 
 ## Prerequisites
 
-- Some functions use [Selenium](https://www.selenium.dev/) to automate a headless Chrome 
-browser, so needs Chrome and compatible ChromeDriver executable installed, and 
-ChromeDriver executable on the system PATH. Originally intended to be deployed on the
+- Some functions use [Selenium](https://www.selenium.dev/) to automate a headless Chrome
+browser, so needs Chrome and compatible ChromeDriver executable installed, and ChromeDriver 
+executable on the system PATH. Originally intended to be deployed on the
 [PythonAnywhere](https://www.pythonanywhere.com/) platform, which covers this
 requirement out-of-the box.
 
@@ -37,7 +37,10 @@ pip install git+https://github.com/elliot-100/britishcycling-clubs.git@v0.0.3#eg
 
 ## Example scripts
 
-You'll need to copy `config_dist.ini`, rename to `config.ini` and populate.
+You'll need to copy `config_dist.ini`, rename to `config.ini` and populate it with club ID and (optionally) credentials.
+
+`example_public__member_count.py` loads club ID from `config.ini`. It then retrieves and prints the total 
+member count from the club's public profile page.
 
 `example_public_club_info.py` loads club ID from `config.ini`. It then retrieves and
 prints the club name and total member count from the club's public profile page.
