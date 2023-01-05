@@ -12,7 +12,8 @@ CONFIG_FILE = "config.ini"
 
 config = configparser.ConfigParser()
 config_filepath = Path(__file__).with_name(CONFIG_FILE)
-config.read_file(open(config_filepath))
+with open(config_filepath, encoding="utf-8") as file:
+    config.read_file(file)
 
 info = bc.get_public_club_info(config["club"]["id"])
 pprint.pprint(info)
