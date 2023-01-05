@@ -12,8 +12,10 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 
 PROFILE_BASE_URL = "https://www.britishcycling.org.uk/club/profile/"
+PROFILE_INTER_PAGE_DELAY = 5
+
 MANAGER_BASE_URL = "https://www.britishcycling.org.uk/uac/connect?success_url=/dashboard/club/membership?club_id="
-INTER_PAGE_DELAY = 5
+REQUESTS_TIMEOUT = 10
 
 
 def get_private_member_counts(
@@ -67,7 +69,7 @@ def get_private_member_counts(
     action.perform()
 
     # allow time for club manager page to load fully
-    time.sleep(INTER_PAGE_DELAY)
+    time.sleep(PROFILE_INTER_PAGE_DELAY)
     member_counts_raw = {
         "active": driver.find_element(By.ID, "members-active-count").text,
         "pending": driver.find_element(By.ID, "members-new-count").text,
@@ -102,7 +104,9 @@ def get_public_club_info(club_id: str) -> Dict:
         value : int
     """
 
-    profile_page = requests.get(f"{PROFILE_BASE_URL}{club_id}/")
+    profile_page = requests.get(
+        f"{PROFILE_BASE_URL}{club_id}/", timeout=REQUESTS_TIMEOUT
+    )
     profile_soup = BeautifulSoup(profile_page.content, "html.parser")
     return {
         "club_name": get_club_name_from_profile(profile_soup),
