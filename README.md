@@ -12,7 +12,7 @@ Priority is to read data in order to create reports/notifications to club admini
 
 ## Prerequisites
 
-- Uses [Selenium](https://www.selenium.dev/) to automate a headless Chrome
+- Some operations use [Selenium](https://www.selenium.dev/) to automate a headless Chrome
 browser, so needs Chrome and compatible ChromeDriver executable installed, and ChromeDriver 
 executable on the system PATH. Originally intended to be deployed on the
 [PythonAnywhere](https://www.pythonanywhere.com/) platform, which covers this
@@ -36,11 +36,10 @@ pip install git+https://github.com/elliot-100/britishcycling-clubs.git@v0.0.3#eg
 
 ## Example scripts
 
+You'll need to copy `config_dist.ini`, rename to `config.ini` and populate it with club ID and (optionally) credentials.
+
 `example_public__member_count.py` loads club ID from `config.ini`. It then retrieves and prints the total 
 member count from the club's public profile page.
 
-`example_private_member_counts.py` loads credentials from `config.ini` (you'll need to copy, rename and
-populate `config_dist.ini`). It then retrieves and prints the number of active,
-expired and new/pending club member counts from the club's Club Manager pages. This takes about 10s.
-
-
+`example_private_member_counts.py` loads club ID and credentials from `config.ini` . It then retrieves and prints the number of active,
+expired and new/pending club member counts from the club's Club Manager pages. This is relatively slow - takes about 10s.
