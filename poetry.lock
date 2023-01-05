@@ -734,7 +734,7 @@ wsproto = ">=0.14"
 name = "types-beautifulsoup4"
 version = "4.11.6.1"
 description = "Typing stubs for beautifulsoup4"
-category = "main"
+category = "dev"
 optional = false
 python-versions = "*"
 files = [
@@ -746,7 +746,7 @@ files = [
 name = "types-requests"
 version = "2.28.11.7"
 description = "Typing stubs for requests"
-category = "main"
+category = "dev"
 optional = false
 python-versions = "*"
 files = [
@@ -761,7 +761,7 @@ types-urllib3 = "<1.27"
 name = "types-urllib3"
 version = "1.26.25.4"
 description = "Typing stubs for urllib3"
-category = "main"
+category = "dev"
 optional = false
 python-versions = "*"
 files = [
@@ -893,4 +893,4 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "981955e1390fa4bd942772adccc0f9d8272557ffaea3de989c444bb3cfe15b05"
+content-hash = "c89835d2760c6c37e8f815481bc401e3cb1aa93dac465b8f44326cfa801910a0"
