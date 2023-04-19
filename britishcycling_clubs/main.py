@@ -19,8 +19,7 @@ REQUESTS_TIMEOUT = 10
 def get_private_member_counts(
     club_id: str, username: str, password: str
 ) -> Dict[str, int]:
-    """
-    Determine how many active, pending and expired members from the club manager page.
+    """Get number of active, pending, expired members from the club manager page.
 
     This is a slow operation (circa 10s), so get them all in one go.
     From the club manager page, return the values from these tabs:
@@ -85,8 +84,7 @@ def get_private_member_counts(
 
 
 def get_public_club_info(club_id: str) -> Dict:
-    """
-    Return information from the club's public profile page.
+    """Return information from the club's public profile page.
 
     Parameters
     ----------
