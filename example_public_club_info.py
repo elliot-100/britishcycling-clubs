@@ -1,5 +1,6 @@
-"""
-Example script: loads club ID from `config.ini`, retrieves and prints public club info.
+"""Example script to get public club info.
+
+Loads club ID from `config.ini`, retrieves and prints info.
 """
 
 import configparser

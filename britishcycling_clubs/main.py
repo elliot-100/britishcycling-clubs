@@ -1,6 +1,4 @@
-"""
-Functions to retrieve club member counts
-"""
+"""Functions to retrieve club member counts."""
 
 import time
 from typing import Dict
@@ -103,7 +101,6 @@ def get_public_club_info(club_id: str) -> Dict:
         key 'total_members' : str
         value : int
     """
-
     profile_page = requests.get(
         f"{PROFILE_BASE_URL}{club_id}/", timeout=REQUESTS_TIMEOUT
     )
@@ -116,7 +113,6 @@ def get_public_club_info(club_id: str) -> Dict:
 
 def get_club_name_from_profile(soup: BeautifulSoup) -> str:
     """Return the club's name from BeautifulSoup object."""
-
     club_name_h1 = soup.find("h1", class_="article__header__title-body__text")
     # Ensures unambiguous type is passed
     assert isinstance(club_name_h1, Tag)
@@ -127,7 +123,6 @@ def get_club_name_from_profile(soup: BeautifulSoup) -> str:
 
 def get_total_members_from_profile(soup: BeautifulSoup) -> int:
     """Return the club's total members count from BeautifulSoup object."""
-
     about_div = soup.find("div", id="about")
     # AssertionError is raised if page other than a club profile page is returned
     # e.g. club_id is incorrect; club's profile is offline pending reaffiliation

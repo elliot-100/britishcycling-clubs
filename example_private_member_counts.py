@@ -1,6 +1,6 @@
-"""
-Example script: loads credentials from `config.ini`, retrieves and prints private club
-member counts.
+"""Example script to get private club member counts.
+
+Loads credentials from `config.ini`, retrieves and prints info.
 """
 
 import configparser
