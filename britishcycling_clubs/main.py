@@ -1,4 +1,4 @@
-"""Functions to retrieve club member counts."""
+"""Functions to retrieve information about a club."""
 
 from __future__ import annotations
 
@@ -18,7 +18,9 @@ REQUESTS_TIMEOUT = 10
 
 
 def get_private_member_counts(
-    club_id: str, username: str, password: str
+    club_id: str,
+    username: str,
+    password: str,
 ) -> dict[str, int]:
     """Get number of active, pending, expired members from the club manager page.
 
@@ -101,7 +103,8 @@ def get_public_club_info(club_id: str) -> dict[str, int | str]:
         value : int
     """
     profile_page = requests.get(
-        f"{PROFILE_BASE_URL}{club_id}/", timeout=REQUESTS_TIMEOUT
+        f"{PROFILE_BASE_URL}{club_id}/",
+        timeout=REQUESTS_TIMEOUT,
     )
     profile_soup = BeautifulSoup(profile_page.content, "html.parser")
     return {
