@@ -1,7 +1,8 @@
 """Functions to retrieve club member counts."""
 
+from __future__ import annotations
+
 import time
-from typing import Dict
 
 import requests
 from bs4 import BeautifulSoup, NavigableString, Tag
@@ -18,7 +19,7 @@ REQUESTS_TIMEOUT = 10
 
 def get_private_member_counts(
     club_id: str, username: str, password: str
-) -> Dict[str, int]:
+) -> dict[str, int]:
     """Get number of active, pending, expired members from the club manager page.
 
     This is a slow operation (circa 10s), so get them all in one go.
@@ -83,7 +84,7 @@ def get_private_member_counts(
     return member_counts
 
 
-def get_public_club_info(club_id: str) -> Dict:
+def get_public_club_info(club_id: str) -> dict[str, int | str]:
     """Return information from the club's public profile page.
 
     Parameters
