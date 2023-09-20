@@ -1,6 +1,6 @@
 """Trivial test that package imports OK."""
 
-import britishcycling_clubs.main as bc
+import britishcycling_clubs as bc
 
 
 def test_spond_import():
