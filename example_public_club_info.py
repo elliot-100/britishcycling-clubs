@@ -7,7 +7,7 @@ import configparser
 import pprint
 from pathlib import Path
 
-import britishcycling_clubs.main as bc
+import britishcycling_clubs as bc
 
 CONFIG_FILE = "config.ini"
 

@@ -6,7 +6,7 @@ Loads credentials from `config.ini`, retrieves and prints info.
 import configparser
 from pathlib import Path
 
-import britishcycling_clubs.main as bc
+import britishcycling_clubs as bc
 
 CONFIG_FILE = "config.ini"
 
