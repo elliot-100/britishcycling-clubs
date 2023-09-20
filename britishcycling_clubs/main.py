@@ -6,9 +6,7 @@ import time
 
 import requests
 from bs4 import BeautifulSoup, NavigableString, Tag
-from selenium import webdriver
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.common.by import By
+from playwright.sync_api import sync_playwright
 
 PROFILE_BASE_URL = "https://www.britishcycling.org.uk/club/profile/"
 PROFILE_INTER_PAGE_DELAY = 5
@@ -48,41 +46,38 @@ def get_private_member_counts(
         keys: 'active', 'pending', 'expired'
         values: corresponding ints
     """
-    chrome_options = webdriver.ChromeOptions()
-    chrome_options.add_argument("--headless")  # PythonAnywhere requirement
-    chrome_options.add_argument("--disable-gpu")  # PythonAnywhere requirement
-    chrome_options.add_argument("--no_sandbox")  # PythonAnywhere requirement
-    driver = webdriver.Chrome(options=chrome_options)
-    action = ActionChains(driver)
 
-    club_url = f"{MANAGER_BASE_URL}{club_id}/"
+    club_manager_url = f"{MANAGER_BASE_URL}{club_id}/"
 
-    # login page
-    driver.get(club_url)
-    username_field = driver.find_element(By.ID, "username2")
-    password_field = driver.find_element(By.ID, "password2")
-    login_button = driver.find_element(By.ID, "login_button")
+    with sync_playwright() as p:
+        browser = p.chromium.launch()
+        page = browser.new_page()
 
-    username_field.send_keys(username)
-    password_field.send_keys(password)
-    action.click(login_button)
-    action.perform()
+        # login page
+        page.goto(club_manager_url)
+        page.locator("id=username2").fill(username)
+        page.locator("id=password2").fill(password)
+        page.locator("id=login_button").click()
 
-    # allow time for club manager page to load fully
-    time.sleep(PROFILE_INTER_PAGE_DELAY)
-    member_counts_raw = {
-        "active": driver.find_element(By.ID, "members-active-count").text,
-        "pending": driver.find_element(By.ID, "members-new-count").text,
-        "expired": driver.find_element(By.ID, "members-expired-count").text,
-    }
+        # allow time for club manager page to load fully,
+        # as page.wait_for_load_state() is ineffective
+        time.sleep(PROFILE_INTER_PAGE_DELAY)
 
-    # values will be blank if there aren't any members, although they appear
-    # as zeros during page load
-    member_counts = {
-        key: 0 if value == "" else int(value)
-        for key, value in member_counts_raw.items()
-    }
-    driver.quit()
+        member_counts_raw = {
+            "active": page.locator("id=members-active-count").inner_text(),
+            "pending": page.locator("id=members-new-count").inner_text(),
+            "expired": page.locator("id=members-expired-count").inner_text(),
+        }
+
+        browser.close()
+
+        # raw values will be blank if there aren't any members (although they appear
+        # as zeros during page load), convert to 0 and ensure ints.
+        member_counts = {
+            key: 0 if value == "" else int(value)
+            for key, value in member_counts_raw.items()
+        }
+
     return member_counts
 
 
