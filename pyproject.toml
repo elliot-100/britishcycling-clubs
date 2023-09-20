@@ -18,7 +18,7 @@ playwright = "^1.38.0"
 black = "^23.3.0"
 isort = "^5.12.0"
 mypy = "^1.3"
-pylint = "^2.17.4"
+ruff = "^0.0.290"
 types-requests = "^2.31.0.1"
 types-beautifulsoup4 = "^4.12.0.5"
 
@@ -31,6 +31,19 @@ target-version = ['py38']
 
 [tool.isort]
 profile = "black"
+
+[tool.ruff]
+# Enable rulesets:
+# flake8-ANNotations, flake8-COMmas, pyDocstyle, pycodestylE, pyFlakes,
+# flake8-Future-Annotations
+select = ["ANN", "COM", "D", "E", "F", "FA"]
+
+# Ignore rules:
+#  Missing type annotation for `self` in method
+ignore = ["ANN101"]
+
+[tool.ruff.pydocstyle]
+convention = "numpy"
 
 [build-system]
 requires = ["poetry-core"]
