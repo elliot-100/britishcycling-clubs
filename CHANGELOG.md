@@ -35,7 +35,8 @@ Historic and pre-release versions aren't necessarily included.
   data from Club Manager pages with `get_private_member_counts()`.
 
   This makes deployment easier, as Playwright simplifies browser installation and
-  updates, and a separate driver executable is no longer required.
+  updates, and a separate driver executable is no longer required. README updated to 
+  cover this.
 
 - Update dev/test dependencies: black, mypy, pytest, types-requests, 
   types-beautifulsoup4
