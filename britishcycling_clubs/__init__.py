@@ -9,10 +9,9 @@ from bs4 import BeautifulSoup, NavigableString, Tag
 from playwright.sync_api import sync_playwright
 
 PROFILE_BASE_URL = "https://www.britishcycling.org.uk/club/profile/"
-PROFILE_INTER_PAGE_DELAY = 5
-
 MANAGER_BASE_URL = "https://www.britishcycling.org.uk/uac/connect?success_url=/dashboard/club/membership?club_id="
-REQUESTS_TIMEOUT = 10
+MANAGER_PAGE_LOAD_DELAY = 5
+REQUESTS_TIMEOUT = 10  # For `requests` library operations
 
 
 def get_private_member_counts(
@@ -60,9 +59,9 @@ def get_private_member_counts(
 
         # allow time for club manager page to load fully,
         # as page.wait_for_load_state() is ineffective
-        time.sleep(PROFILE_INTER_PAGE_DELAY)
+        time.sleep(MANAGER_PAGE_LOAD_DELAY)
 
-        member_counts_raw = {
+        member_counts = {
             "active": page.locator("id=members-active-count").inner_text(),
             "pending": page.locator("id=members-new-count").inner_text(),
             "expired": page.locator("id=members-expired-count").inner_text(),
@@ -71,13 +70,11 @@ def get_private_member_counts(
         browser.close()
 
         # raw values will be blank if there aren't any members (although they appear
-        # as zeros during page load), convert to 0 and ensure ints.
-        member_counts = {
+        # as zeros during page load); convert to 0 and ensure ints.
+        return {
             key: 0 if value == "" else int(value)
-            for key, value in member_counts_raw.items()
+            for key, value in member_counts.items()
         }
-
-    return member_counts
 
 
 def get_public_club_info(club_id: str) -> dict[str, int | str]:
@@ -102,12 +99,12 @@ def get_public_club_info(club_id: str) -> dict[str, int | str]:
     )
     profile_soup = BeautifulSoup(profile_page.content, "html.parser")
     return {
-        "club_name": get_club_name_from_profile(profile_soup),
-        "total_members": get_total_members_from_profile(profile_soup),
+        "club_name": _get_club_name_from_profile(profile_soup),
+        "total_members": _get_total_members_from_profile(profile_soup),
     }
 
 
-def get_club_name_from_profile(soup: BeautifulSoup) -> str:
+def _get_club_name_from_profile(soup: BeautifulSoup) -> str:
     """Return the club's name from BeautifulSoup object."""
     club_name_h1 = soup.find("h1", class_="article__header__title-body__text")
 
@@ -122,7 +119,7 @@ def get_club_name_from_profile(soup: BeautifulSoup) -> str:
     return club_name_h1.string
 
 
-def get_total_members_from_profile(soup: BeautifulSoup) -> int:
+def _get_total_members_from_profile(soup: BeautifulSoup) -> int:
     """Return the club's total members count from BeautifulSoup object."""
     about_div = soup.find("div", id="about")
 
