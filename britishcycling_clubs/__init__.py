@@ -110,32 +110,44 @@ def get_public_club_info(club_id: str) -> dict[str, int | str]:
 def get_club_name_from_profile(soup: BeautifulSoup) -> str:
     """Return the club's name from BeautifulSoup object."""
     club_name_h1 = soup.find("h1", class_="article__header__title-body__text")
-    # Ensures unambiguous type is passed
-    assert isinstance(club_name_h1, Tag)
-    # Ensures unambiguous type is passed
-    assert isinstance(club_name_h1.string, str)
+
+    # For type-checking purposes: ensures unambiguous type is passed
+    if not isinstance(club_name_h1, Tag):
+        raise TypeError
+
+    # For type-checking purposes: ensures unambiguous type is passed
+    if not isinstance(club_name_h1.string, str):
+        raise TypeError
+
     return club_name_h1.string
 
 
 def get_total_members_from_profile(soup: BeautifulSoup) -> int:
     """Return the club's total members count from BeautifulSoup object."""
     about_div = soup.find("div", id="about")
-    # AssertionError is raised if page other than a club profile page is returned
+
+    # TypeError is raised if page other than a club profile page is returned
     # e.g. club_id is incorrect; club's profile is offline pending reaffiliation
     # Consider checking URL returned as a more explicit check
-    assert isinstance(about_div, Tag)
+    if not isinstance(about_div, Tag):
+        raise TypeError
 
-    # AssertionError raised if string is not found as exact tag content
+    # TypeError raised if string is not found as exact tag content
     member_count_label = about_div.find(string="Total club members:")
-    assert isinstance(member_count_label, NavigableString)
+    if not isinstance(member_count_label, NavigableString):
+        raise TypeError
 
     member_count_label_outer = member_count_label.parent
-    # Not expected to raise, but ensures unambiguous type is passed
-    assert isinstance(member_count_label_outer, Tag)
+
+    # For type-checking purposes: ensures unambiguous type is passed
+    if not isinstance(member_count_label_outer, Tag):
+        raise TypeError
 
     member_count_label_outer2 = member_count_label_outer.parent
-    # Not expected to raise, but ensures unambiguous type is passed
-    assert isinstance(member_count_label_outer2, Tag)
+
+    # For type-checking purposes: ensures unambiguous type is passed
+    if not isinstance(member_count_label_outer2, Tag):
+        raise TypeError
 
     strings = list(member_count_label_outer2.strings)
     return int(strings[-1])
