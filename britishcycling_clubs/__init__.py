@@ -46,7 +46,6 @@ def get_private_member_counts(
         keys: 'active', 'pending', 'expired'
         values: corresponding ints
     """
-
     club_manager_url = f"{MANAGER_BASE_URL}{club_id}/"
 
     with sync_playwright() as p:
