@@ -17,13 +17,9 @@ administrators.
 
 ## Installation
 
-Not yet available at PyPI. Install from GitHub, e.g:
+Install from PyPI, e.g:
 
-`pip install git+https://github.com/elliot-100/britishcycling-clubs.git#egg=britishcycling-clubs`
-
-Or for a specific version:
-
-`pip install git+https://github.com/elliot-100/britishcycling-clubs.git@v0.0.3#egg=britishcycling-clubs`
+`pip install britishcycling-clubs`
 
 Some functions use [Playwright](https://playwright.dev/python/) to automate a 
 headless Chromium browser. This needs to be installed:
