@@ -26,8 +26,15 @@ headless Chromium browser. This needs to be installed:
 
 `playwright install chromium`
 
+If you're installing in e.g. a bare-bones server/CI environment, you'll probably be 
+prompted to install system dependencies, which you can do with:
 
-# Usage
+`playwright install-deps chromium`
+
+See also https://playwright.dev/python/docs/browsers#install-system-dependencies
+
+
+## Usage
 
 ```
 get_private_member_counts(club_id: str, username: str, password: str) -> dict[str, int]
