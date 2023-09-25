@@ -34,7 +34,10 @@ profile = "black"
 
 [tool.mypy]
 strict = true
-disallow_untyped_calls = false  # calls to playwright
+
+[[tool.mypy.overrides]]
+module = "playwright"
+disallow_untyped_calls = false
 
 [tool.ruff]
 # Enable rulesets:

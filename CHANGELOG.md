@@ -12,6 +12,7 @@ Historic and pre-release versions aren't necessarily included.
 
 ### Added
 
+- PEP 561 typing compatibility
 - Documentation: Explain how to install playwright system dependencies
 
 ### Changed

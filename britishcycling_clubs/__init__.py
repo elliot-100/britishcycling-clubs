@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import time
+from typing import TypedDict
 
 import requests
 from bs4 import BeautifulSoup, NavigableString, Tag
@@ -12,6 +13,13 @@ PROFILE_BASE_URL = "https://www.britishcycling.org.uk/club/profile/"
 MANAGER_BASE_URL = "https://www.britishcycling.org.uk/uac/connect?success_url=/dashboard/club/membership?club_id="
 MANAGER_PAGE_LOAD_DELAY = 5
 REQUESTS_TIMEOUT = 10  # For `requests` library operations
+
+
+class PublicClubInfo(TypedDict):
+    """Return type for `get_public_club_info()` function."""
+
+    club_name: str
+    total_members: int
 
 
 def get_private_member_counts(
@@ -30,18 +38,18 @@ def get_private_member_counts(
 
     Parameters
     ----------
-    club_id : str
+    club_id
         From the URL used to access club pages.
 
-    username : str
+    username
         Username
 
-    password : str
+    password
         Password
 
     Returns
     -------
-    dict
+    dict[str, int]
         keys: 'active', 'pending', 'expired'
         values: corresponding ints
     """
@@ -77,21 +85,17 @@ def get_private_member_counts(
         }
 
 
-def get_public_club_info(club_id: str) -> dict[str, int | str]:
+def get_public_club_info(club_id: str) -> PublicClubInfo:
     """Return information from the club's public profile page.
 
     Parameters
     ----------
-    club_id : str
+    club_id
         From the URL used to access club pages.
 
     Returns
     -------
-    dict
-        key 'club_name' : str
-        value : str
-        key 'total_members' : str
-        value : int
+    PublicClubInfo
     """
     profile_page = requests.get(
         f"{PROFILE_BASE_URL}{club_id}/",
