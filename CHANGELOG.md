@@ -8,6 +8,17 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 Historic and pre-release versions aren't necessarily included.
 
 
+## [0.4.1] - 2023-09-25
+
+### Fixed
+
+- Missing/outdated/broken package metadata
+
+### Changed
+
+- Update dev/test dependencies: ruff
+
+
 ## [0.4.0] - 2023-09-25
 
 ### Added
@@ -18,10 +29,6 @@ Historic and pre-release versions aren't necessarily included.
 ### Changed
 
 - Update dev/test dependencies: ruff
-
-### Fixed
-
-### Removed
 
 
 ## [0.3.0] - 2023-09-21
