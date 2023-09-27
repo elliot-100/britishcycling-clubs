@@ -4,9 +4,11 @@ version = "0.4.0"
 description = "Unofficial library to automate aspects of British/Scottish/Welsh Cycling's club Membership Manager system"
 authors = ["elliot-100 <3186037+elliot-100@users.noreply.github.com>"]
 readme = "README.md"
-homepage = "https://https://github.com/elliot-100/britishcycling-clubs"
-repository = "https://https://github.com/elliot-100/britishcycling-clubs"
+homepage = "https://github.com/elliot-100/britishcycling-clubs"
+repository = "https://github.com/elliot-100/britishcycling-clubs"
 packages = [{include = "britishcycling_clubs"}]
+include = ["CHANGELOG.md"]
+license = "GPL 3.0"
 
 [tool.poetry.dependencies]
 python = "^3.8"
@@ -57,5 +59,5 @@ ignore = ["ANN101"]
 convention = "numpy"
 
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
