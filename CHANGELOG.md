@@ -14,7 +14,8 @@ Historic and pre-release versions aren't necessarily included.
 
 ### Changed
 
-- Update dev/test dependencies: ruff
+- Update dependencies: requests, playwright
+- Update dev/test dependencies: black, mypy, ruff, types-requests
 
 ### Fixed
 
