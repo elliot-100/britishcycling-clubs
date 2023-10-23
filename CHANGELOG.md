@@ -8,18 +8,12 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 Historic and pre-release versions aren't necessarily included.
 
 
-## [UNRELEASED] - TBC
-
-### Added
+## [0.4.2] - 2023-10-23
 
 ### Changed
 
 - Update dependencies: requests, playwright
 - Update dev/test dependencies: black, mypy, ruff, types-requests
-
-### Fixed
-
-### Removed
 
 
 ## [0.4.1] - 2023-09-27
@@ -98,6 +92,7 @@ Historic and pre-release versions aren't necessarily included.
 - Update dev dependencies: mypy, pylint, test, types-requests, types-beautifulsoup4
 
 
+[0.4.2]: https://github.com/elliot-100/britishcycling-clubs/compare/v0.4.1...v0.4.2
 [0.4.1]: https://github.com/elliot-100/britishcycling-clubs/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/elliot-100/britishcycling-clubs/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/elliot-100/britishcycling-clubs/compare/v0.2.5...v0.3.0
