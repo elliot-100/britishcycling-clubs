@@ -37,7 +37,12 @@ See also https://playwright.dev/python/docs/browsers#install-system-dependencies
 ## Usage
 
 ```
-get_private_member_counts(club_id: str, username: str, password: str) -> dict[str, int]
+def get_private_member_counts(
+    club_id: str,
+    username: str,
+    password: str,
+    manager_page_load_delay: int = 5,
+) -> dict[str, int]:
 ```
 Get numbers of active, pending, expired members from the club manager page.
 

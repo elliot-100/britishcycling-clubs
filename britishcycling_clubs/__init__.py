@@ -11,7 +11,6 @@ from playwright.sync_api import sync_playwright
 
 PROFILE_BASE_URL = "https://www.britishcycling.org.uk/club/profile/"
 MANAGER_BASE_URL = "https://www.britishcycling.org.uk/uac/connect?success_url=/dashboard/club/membership?club_id="
-MANAGER_PAGE_LOAD_DELAY = 5
 REQUESTS_TIMEOUT = 10  # For `requests` library operations
 
 
@@ -26,6 +25,7 @@ def get_private_member_counts(
     club_id: str,
     username: str,
     password: str,
+    manager_page_load_delay: int = 5,
 ) -> dict[str, int]:
     """Get number of active, pending, expired members from the club manager page.
 
@@ -47,6 +47,10 @@ def get_private_member_counts(
     password
         Password
 
+    manager_page_load_delay
+        Time (s) allowed for club manager page to load. Defaults to 5
+
+
     Returns
     -------
     dict[str, int]
@@ -67,7 +71,7 @@ def get_private_member_counts(
 
         # allow time for club manager page to load fully,
         # as page.wait_for_load_state() is ineffective
-        time.sleep(MANAGER_PAGE_LOAD_DELAY)
+        time.sleep(manager_page_load_delay)
 
         member_counts = {
             "active": page.locator("id=members-active-count").inner_text(),
