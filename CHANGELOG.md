@@ -10,6 +10,10 @@ Historic and pre-release versions aren't necessarily included.
 
 ## [UNRELEASED] - TBC
 
+### Added
+
+- Optional page load delay in `get_private_member_counts()` 
+
 ### Changed
 
 - Update dev/test dependencies: black, ruff
