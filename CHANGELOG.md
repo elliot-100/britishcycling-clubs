@@ -8,6 +8,13 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 Historic and pre-release versions aren't necessarily included.
 
 
+## [UNRELEASED] - TBC
+
+### Changed
+
+- Update dev/test dependencies: black, ruff
+
+
 ## [0.4.2] - 2023-10-23
 
 ### Changed
