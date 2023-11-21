@@ -8,9 +8,15 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 Historic and pre-release versions aren't necessarily included.
 
 
-## UNRELEASED - TBC
+## [0.6.0] - 2023-11-09
+
+### Added
+
+- Support Python 3.12 in CI workflow
 
 ### Changed
+
+- `get_private_member_counts()`: raise exception if zero 'active members' would be returned.
 
 - Update dev/test dependencies: mypy, ruff
 
@@ -112,6 +118,7 @@ Historic and pre-release versions aren't necessarily included.
 - Update dev dependencies: mypy, pylint, test, types-requests, types-beautifulsoup4
 
 
+[0.6.0]: https://github.com/elliot-100/britishcycling-clubs/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/elliot-100/britishcycling-clubs/compare/v0.4.2...v0.5.0
 [0.4.2]: https://github.com/elliot-100/britishcycling-clubs/compare/v0.4.1...v0.4.2
 [0.4.1]: https://github.com/elliot-100/britishcycling-clubs/compare/v0.4.0...v0.4.1
