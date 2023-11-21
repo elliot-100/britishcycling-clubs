@@ -8,6 +8,13 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 Historic and pre-release versions aren't necessarily included.
 
 
+## UNRELEASED - TBC
+
+### Changed
+
+- Update dev/test dependencies: mypy, ruff
+
+
 ## [0.5.0] - 2023-11-09
 
 ### Added
@@ -24,6 +31,7 @@ Historic and pre-release versions aren't necessarily included.
 ### Changed
 
 - Update dependencies: requests, playwright
+
 - Update dev/test dependencies: black, mypy, ruff, types-requests
 
 
@@ -43,6 +51,7 @@ Historic and pre-release versions aren't necessarily included.
 ### Added
 
 - PEP 561 typing compatibility
+
 - Documentation: Explain how to install playwright system dependencies
 
 ### Changed
