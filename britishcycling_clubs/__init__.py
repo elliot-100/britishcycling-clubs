@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import logging
 import time
 from typing import TypedDict
 
@@ -12,6 +13,8 @@ from playwright.sync_api import sync_playwright
 PROFILE_BASE_URL = "https://www.britishcycling.org.uk/club/profile/"
 MANAGER_BASE_URL = "https://www.britishcycling.org.uk/uac/connect?success_url=/dashboard/club/membership?club_id="
 REQUESTS_TIMEOUT = 10  # For `requests` library operations
+
+log = logging.getLogger(__name__)
 
 
 class PublicClubInfo(TypedDict):
@@ -63,9 +66,16 @@ def get_private_member_counts(
     values hadn't populated correctly.
 
     """
+    start_time = time.time()
+    _log_info("Started timer for Playwright operations", start_time)
+
     club_manager_url = f"{MANAGER_BASE_URL}{club_id}/"
 
+    start_time = time.time()
+    _log_info("Started timer for Playwright operations", start_time)
+
     with sync_playwright() as p:
+        _log_info("Launching browser", start_time)
         browser = p.chromium.launch()
         page = browser.new_page()
 
@@ -74,9 +84,14 @@ def get_private_member_counts(
         page.locator("id=username2").fill(username)
         page.locator("id=password2").fill(password)
         page.locator("id=login_button").click()
+        _log_info("Got club manager page; logging in", start_time)
 
         # allow time for club manager page to load fully,
         # as page.wait_for_load_state() is ineffective
+        _log_info(
+            f"Waiting extra {manager_page_load_delay} s for page load",
+            start_time,
+        )
         time.sleep(manager_page_load_delay)
 
         raw_member_counts = {
@@ -85,7 +100,9 @@ def get_private_member_counts(
             "expired": page.locator("id=members-expired-count").inner_text(),
         }
 
+        _log_info("Raw data retrieved", start_time)
         browser.close()
+        _log_info("Closed browser", start_time)
 
         # Raw values will be blank if there aren't any members (although they appear
         # as zeros during page load); convert to 0 and ensure ints.
@@ -179,3 +196,10 @@ def _get_total_members_from_profile(soup: BeautifulSoup) -> int:
 
     strings = list(member_count_label_outer2.strings)
     return int(strings[-1])
+
+
+def _log_info(message: str, start_time: float) -> None:
+    """Add INFO level log entry, with elapsed time since `start_time`."""
+    elapsed_time = time.time() - start_time
+    log_message = f"Elapsed: {elapsed_time:.1f} s. {message}"
+    log.info(log_message)
