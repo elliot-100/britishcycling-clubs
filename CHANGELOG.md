@@ -13,6 +13,11 @@ Historic and pre-release versions aren't necessarily included.
 ### Added
 
 - `get_public_club_info()`: raise exception on redirect; basic unit tests
+- `get_private_member_counts()` basic unit tests
+
+## Fixed
+
+- Duplicate logging message
 
 
 ## [0.7.0] - 2023-11-24

@@ -66,9 +66,6 @@ def get_private_member_counts(
     values hadn't populated correctly.
 
     """
-    start_time = time.time()
-    _log_info("Started timer for Playwright operations", start_time)
-
     club_manager_url = f"{MANAGER_BASE_URL}{club_id}/"
 
     start_time = time.time()
