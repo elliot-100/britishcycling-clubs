@@ -4,12 +4,17 @@ Loads credentials from `config.ini`, retrieves and prints info.
 """
 
 import configparser
+import logging
 from pathlib import Path
 
 import britishcycling_clubs as bc
 
 CONFIG_FILE = "config.ini"
 
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s:%(message)s",
+)
 config = configparser.ConfigParser()
 config_filepath = Path(__file__).with_name(CONFIG_FILE)
 with Path.open(config_filepath, encoding="utf-8") as file:
