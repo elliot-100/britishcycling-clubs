@@ -66,9 +66,6 @@ def get_private_member_counts(
     values hadn't populated correctly.
 
     """
-    start_time = time.time()
-    _log_info("Started timer for Playwright operations", start_time)
-
     club_manager_url = f"{MANAGER_BASE_URL}{club_id}/"
 
     start_time = time.time()
@@ -104,29 +101,33 @@ def get_private_member_counts(
         browser.close()
         _log_info("Closed browser", start_time)
 
-        # Raw values will be blank if there aren't any members (although they appear
-        # as zeros during page load); convert to 0 and ensure ints.
-        member_counts = {}
-        for key, value in raw_member_counts.items():
-            if value == "":
-                member_counts[key] = 0
-            else:
-                member_counts[key] = int(value)
+        return _process_member_counts(raw_member_counts)
 
-        # Raise exception if zero 'active members' value.
-        # 'active' appears to be the slowest value to populate.
-        # 'pending' will often be genuinely zero; 'expired' could be genuinely zero
-        if member_counts["active"] == 0:
-            error_message = (
-                "Active member count was zero; assuming error. "
-                f"{member_counts['active']=}; "
-                f"{member_counts['pending']=}; "
-                f"{member_counts['expired']=}. "
-                "Consider increasing `manager_page_load_delay`."
-            )
-            raise ValueError(error_message)
 
-        return member_counts
+def _process_member_counts(member_counts: dict[str, str]) -> dict[str, int]:
+    """Process raw values.
+
+    Values are blank if there aren't any members (although they appear as zeros
+    during page load); convert these to 0 and ensure all are ints.
+
+    Raise exception if zero 'active members' value.
+    """
+    processed_member_counts = {
+        key: int(value) if value else 0 for key, value in member_counts.items()
+    }
+    # Assume an error if zero 'active' value.
+    # 'active' appears to be the slowest value to populate.
+    # 'pending' will often be genuinely zero; 'expired' could be genuinely zero
+    if processed_member_counts["active"] == 0:
+        error_message = (
+            "Active member count was zero; assuming error. "
+            f"{processed_member_counts['active']=}; "
+            f"{processed_member_counts['pending']=}; "
+            f"{processed_member_counts['expired']=}. "
+            "Consider increasing `manager_page_load_delay`."
+        )
+        raise ValueError(error_message)
+    return processed_member_counts
 
 
 def get_public_club_info(club_id: str) -> PublicClubInfo:
