@@ -141,11 +141,13 @@ def get_public_club_info(club_id: str) -> PublicClubInfo:
     -------
     PublicClubInfo
     """
-    profile_page = requests.get(
-        f"{PROFILE_BASE_URL}{club_id}/",
-        timeout=REQUESTS_TIMEOUT,
-    )
-    profile_soup = BeautifulSoup(profile_page.content, "html.parser")
+    profile_url = f"{PROFILE_BASE_URL}{club_id}/"
+    r = requests.get(profile_url, timeout=REQUESTS_TIMEOUT)
+    r.raise_for_status()
+    if r.url != profile_url:
+        error_message = f"Redirected to unexpected URL {r.url}. Is `club_id` valid?"
+        raise ValueError(error_message)
+    profile_soup = BeautifulSoup(r.content, "html.parser")
     return {
         "club_name": _get_club_name_from_profile(profile_soup),
         "total_members": _get_total_members_from_profile(profile_soup),
