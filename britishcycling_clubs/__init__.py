@@ -141,11 +141,13 @@ def get_public_club_info(club_id: str) -> PublicClubInfo:
     -------
     PublicClubInfo
     """
-    profile_page = requests.get(
-        f"{PROFILE_BASE_URL}{club_id}/",
-        timeout=REQUESTS_TIMEOUT,
-    )
-    profile_soup = BeautifulSoup(profile_page.content, "html.parser")
+    profile_url = f"{PROFILE_BASE_URL}{club_id}/"
+    r = requests.get(profile_url, timeout=REQUESTS_TIMEOUT)
+    r.raise_for_status()
+    if r.url != profile_url:
+        error_message = f"Redirected to unexpected URL {r.url}. Is `club_id` valid?"
+        raise ValueError(error_message)
+    profile_soup = BeautifulSoup(r.content, "html.parser")
     return {
         "club_name": _get_club_name_from_profile(profile_soup),
         "total_members": _get_total_members_from_profile(profile_soup),
@@ -153,7 +155,7 @@ def get_public_club_info(club_id: str) -> PublicClubInfo:
 
 
 def _get_club_name_from_profile(soup: BeautifulSoup) -> str:
-    """Return the club's name from BeautifulSoup object."""
+    """Return the club's name from profile page soup."""
     club_name_h1 = soup.find("h1", class_="article__header__title-body__text")
 
     # For type-checking purposes: ensures unambiguous type is passed
@@ -168,7 +170,7 @@ def _get_club_name_from_profile(soup: BeautifulSoup) -> str:
 
 
 def _get_total_members_from_profile(soup: BeautifulSoup) -> int:
-    """Return the club's total members count from BeautifulSoup object."""
+    """Return the club's total members count from profile page soup."""
     about_div = soup.find("div", id="about")
 
     # TypeError is raised if page other than a club profile page is returned
