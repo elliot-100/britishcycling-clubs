@@ -8,6 +8,13 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 Historic and pre-release versions aren't necessarily included.
 
 
+## [UNRELEASED] - TBC
+
+### Added
+
+- `get_public_club_info()`: raise exception on redirect; basic unit tests
+
+
 ## [0.7.0] - 2023-11-24
 
 ### Added
@@ -125,6 +132,7 @@ Historic and pre-release versions aren't necessarily included.
 - Update dev dependencies: mypy, pylint, test, types-requests, types-beautifulsoup4
 
 
+[UNRELEASED]: https://github.com/elliot-100/britishcycling-clubs/compare/v0.7.0...HEAD
 [0.7.0]: https://github.com/elliot-100/britishcycling-clubs/compare/v0.6.0...v0.7.0
 [0.6.0]: https://github.com/elliot-100/britishcycling-clubs/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/elliot-100/britishcycling-clubs/compare/v0.4.2...v0.5.0

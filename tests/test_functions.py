@@ -1,10 +1,11 @@
 """Tests for functions."""
-
+import pytest
 from bs4 import BeautifulSoup
 
 from britishcycling_clubs import (
     _get_club_name_from_profile,
     _get_total_members_from_profile,
+    _process_member_counts,
 )
 
 # Partial extract from actual page
@@ -38,3 +39,28 @@ def test__get_total_members_from_profile__happy_path() -> None:
     """Test that total members count is returned from 'profile' soup."""
     profile_soup = BeautifulSoup(PROFILE_PAGE_EXTRACT)
     assert _get_total_members_from_profile(profile_soup) == 42
+
+
+def test__process_member_counts__happy_path() -> None:
+    """Test that raw values are converted to ints."""
+    raw_counts = {
+        "active": "123",
+        "pending": "",
+        "expired": "67",
+    }
+    assert _process_member_counts(raw_counts) == {
+        "active": 123,
+        "pending": 0,
+        "expired": 67,
+    }
+
+
+def test__process_member_counts__blank_active_count_raises_exception() -> None:
+    """Test that ValueError is raised if active is blank."""
+    raw_counts = {
+        "active": "",
+        "pending": "8",
+        "expired": "67",
+    }
+    with pytest.raises(ValueError):
+        _process_member_counts(raw_counts)
