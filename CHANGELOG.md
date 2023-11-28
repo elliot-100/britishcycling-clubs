@@ -15,7 +15,7 @@ Historic and pre-release versions aren't necessarily included.
 - `get_public_club_info()`: raise exception on redirect; basic unit tests
 - `get_private_member_counts()` basic unit tests
 
-## Fixed
+### Fixed
 
 - Duplicate logging message
 

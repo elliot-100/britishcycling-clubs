@@ -173,10 +173,6 @@ def _get_club_name_from_profile(soup: BeautifulSoup) -> str:
 def _get_total_members_from_profile(soup: BeautifulSoup) -> int:
     """Return the club's total members count from profile page soup."""
     about_div = soup.find("div", id="about")
-
-    # TypeError is raised if page other than a club profile page is returned
-    # e.g. club_id is incorrect; club's profile is offline pending reaffiliation
-    # Consider checking URL returned as a more explicit check
     if not isinstance(about_div, Tag):
         raise TypeError
 
