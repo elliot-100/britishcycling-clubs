@@ -110,16 +110,15 @@ def get_private_member_counts(
 def _process_member_counts(member_counts: dict[str, str]) -> dict[str, int]:
     """Process raw values.
 
-    Raw values will be blank if there aren't any members (although they appear as zeros
-    during page load); convert these to 0 and ensure ints.
+    Values are blank if there aren't any members (although they appear as zeros
+    during page load); convert these to 0 and ensure all are ints.
+
+    Raise exception if zero 'active members' value.
     """
-    processed_member_counts = {}
-    for key, value in member_counts.items():
-        if value == "":
-            processed_member_counts[key] = 0
-        else:
-            processed_member_counts[key] = int(value)
-    # Raise exception if zero 'active members' value.
+    processed_member_counts = {
+        key: int(value) if value else 0 for key, value in member_counts.items()
+    }
+    # Assume an error if zero 'active' value.
     # 'active' appears to be the slowest value to populate.
     # 'pending' will often be genuinely zero; 'expired' could be genuinely zero
     if processed_member_counts["active"] == 0:
