@@ -7,7 +7,7 @@ import time
 from typing import TypedDict
 
 import requests
-from bs4 import BeautifulSoup, NavigableString, Tag
+from bs4 import BeautifulSoup, Tag
 from playwright.sync_api import sync_playwright
 
 PROFILE_BASE_URL = "https://www.britishcycling.org.uk/club/profile/"
@@ -52,13 +52,11 @@ def get_club_profile_info(club_id: str) -> ClubProfileInfo:
 def _club_name_from_profile(soup: BeautifulSoup) -> str:
     """Return the club's name from profile page soup."""
     club_name_h1 = soup.find("h1", class_="article__header__title-body__text")
-
-    # For type-checking purposes: ensures unambiguous type is passed
-    if not isinstance(club_name_h1, Tag):
+    if not club_name_h1:
+        raise ValueError("Can't find club name heading")
+    if not isinstance(club_name_h1, Tag):  # type-narrowing
         raise TypeError
-
-    # For type-checking purposes: ensures unambiguous type is passed
-    if not isinstance(club_name_h1.string, str):
+    if not isinstance(club_name_h1.string, str):  # type-narrowing
         raise TypeError
 
     return club_name_h1.string
@@ -67,24 +65,21 @@ def _club_name_from_profile(soup: BeautifulSoup) -> str:
 def _total_members_from_profile(soup: BeautifulSoup) -> int:
     """Return the club's total members count from profile page soup."""
     about_div = soup.find("div", id="about")
-    if not isinstance(about_div, Tag):
+    if not about_div:
+        raise ValueError("Can't find 'about' div")
+    if not isinstance(about_div, Tag):  # type-narrowing
         raise TypeError
 
-    # TypeError raised if string is not found as exact tag content
     member_count_label = about_div.find(string="Total club members:")
-    if not isinstance(member_count_label, NavigableString):
-        raise TypeError
+    if not member_count_label:
+        raise ValueError("Can't find 'Total club members:'")
 
     member_count_label_outer = member_count_label.parent
-
-    # For type-checking purposes: ensures unambiguous type is passed
-    if not isinstance(member_count_label_outer, Tag):
+    if not isinstance(member_count_label_outer, Tag):  # type-narrowing
         raise TypeError
 
     member_count_label_outer2 = member_count_label_outer.parent
-
-    # For type-checking purposes: ensures unambiguous type is passed
-    if not isinstance(member_count_label_outer2, Tag):
+    if not isinstance(member_count_label_outer2, Tag):  # type-narrowing
         raise TypeError
 
     strings = list(member_count_label_outer2.strings)
