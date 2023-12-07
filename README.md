@@ -1,5 +1,6 @@
 # britishcycling-clubs
 
+
 ## About
 
 **Unofficial, not affiliated or endorsed by British/Scottish/Welsh Cycling.**
@@ -11,9 +12,11 @@ Cycling clubs too, but this hasn't been tested.
 Priority is to read data in order to create reports/notifications to club
 administrators.
 
+
 ## Prerequisites
 
 - Credentials for a club using the Club Management Tool
+
 
 ## Installation
 
@@ -21,8 +24,8 @@ Install from PyPI, e.g:
 
 `pip install britishcycling-clubs`
 
-Some functions use [Playwright](https://playwright.dev/python/) to automate a 
-headless Chromium browser. This needs to be installed:
+Some functions use [Playwright](https://playwright.dev/python/) to automate a headless Chromium browser. This needs
+to be installed:
 
 `playwright install chromium`
 
@@ -36,8 +39,11 @@ See also https://playwright.dev/python/docs/browsers#install-system-dependencies
 
 ## Usage
 
+
+### Get member counts from a club's Club Manager pages
+
 ```
-def get_private_member_counts(
+def get_manager_member_counts(
     club_id: str,
     username: str,
     password: str,
@@ -54,28 +60,25 @@ Specifically, returns the counts from these tabs:
 
 This takes about 10s.
 
+Example script `example_manager_member_counts.py` loads club ID and credentials from
+`config.ini` (you'll need to copy `config_dist.ini`, populate and rename to 
+`config.
+ini`). It then retrieves and prints the number of active, expired and new/pending 
+club member counts from the club's Club Manager pages. 
+
+
+### Get info from a club's profile page
+
 ```
-get_public_club_info(club_id: str) -> dict[str, int | str]
+get_club_profile_info(club_id: str) -> dict[str, int | str]
 ```
 Return information from the club's public profile page; doesn't require login.
 
 Specifically, returns these values:
 
 - Club name
-- Total club members (note that this isn't always a live value even if the club uses 
-  the Club Management Tool to manage members)
+- Total club members
 
-
-## Example scripts
-
-You'll need to copy `config_dist.ini`, rename to `config.ini` and populate it with club
-ID and (optionally) credentials.
-
-`example_private_member_counts.py` loads  club ID and credentials from `config.ini`.
-It then retrieves and prints the number of active, expired and new/pending club member
-counts from the club's Club Manager pages. 
-
-`example_public_club_info.py` loads club ID from `config.ini`. It then retrieves and
-prints the club name and 'total member count' from the club's public profile page.
-
-
+Example script `example_club_profile_info.py` loads club ID from `config.ini` (you'll
+need to copy `config_dist.ini`, populate club ID only and rename).  It 
+then retrieves and prints the club name and total member count.

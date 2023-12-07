@@ -10,6 +10,11 @@ Historic and pre-release versions aren't necessarily included.
 
 ## [UNRELEASED] - TBC
 
+### Changed
+
+- **BREAKING CHANGE**: Functions renamed to `get_club_profile_info()` and 
+  `get_manager_member_counts()`
+
 ### Added
 
 - `get_public_club_info()`: raise exception on redirect; basic unit tests

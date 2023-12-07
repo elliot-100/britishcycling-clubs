@@ -17,20 +17,87 @@ REQUESTS_TIMEOUT = 10  # For `requests` library operations
 log = logging.getLogger(__name__)
 
 
-class PublicClubInfo(TypedDict):
-    """Return type for `get_public_club_info()` function."""
+class ClubProfileInfo(TypedDict):
+    """Return type for `get_club_profile_info()` function."""
 
     club_name: str
     total_members: int
 
 
-def get_private_member_counts(
+def get_club_profile_info(club_id: str) -> ClubProfileInfo:
+    """Return information from the club's public profile page.
+
+    Parameters
+    ----------
+    club_id
+        From the URL used to access club pages.
+
+    Returns
+    -------
+    ClubProfileInfo
+    """
+    profile_url = f"{PROFILE_BASE_URL}{club_id}/"
+    r = requests.get(profile_url, timeout=REQUESTS_TIMEOUT)
+    r.raise_for_status()
+    if r.url != profile_url:
+        error_message = f"Redirected to unexpected URL {r.url}. Is `club_id` valid?"
+        raise ValueError(error_message)
+    profile_soup = BeautifulSoup(r.content, "html.parser")
+    return {
+        "club_name": _club_name_from_profile(profile_soup),
+        "total_members": _total_members_from_profile(profile_soup),
+    }
+
+
+def _club_name_from_profile(soup: BeautifulSoup) -> str:
+    """Return the club's name from profile page soup."""
+    club_name_h1 = soup.find("h1", class_="article__header__title-body__text")
+
+    # For type-checking purposes: ensures unambiguous type is passed
+    if not isinstance(club_name_h1, Tag):
+        raise TypeError
+
+    # For type-checking purposes: ensures unambiguous type is passed
+    if not isinstance(club_name_h1.string, str):
+        raise TypeError
+
+    return club_name_h1.string
+
+
+def _total_members_from_profile(soup: BeautifulSoup) -> int:
+    """Return the club's total members count from profile page soup."""
+    about_div = soup.find("div", id="about")
+    if not isinstance(about_div, Tag):
+        raise TypeError
+
+    # TypeError raised if string is not found as exact tag content
+    member_count_label = about_div.find(string="Total club members:")
+    if not isinstance(member_count_label, NavigableString):
+        raise TypeError
+
+    member_count_label_outer = member_count_label.parent
+
+    # For type-checking purposes: ensures unambiguous type is passed
+    if not isinstance(member_count_label_outer, Tag):
+        raise TypeError
+
+    member_count_label_outer2 = member_count_label_outer.parent
+
+    # For type-checking purposes: ensures unambiguous type is passed
+    if not isinstance(member_count_label_outer2, Tag):
+        raise TypeError
+
+    strings = list(member_count_label_outer2.strings)
+    return int(strings[-1])
+
+
+def get_manager_member_counts(
     club_id: str,
     username: str,
     password: str,
     manager_page_load_delay: int = 5,
 ) -> dict[str, int]:
-    """Get number of active, pending, expired members from the club manager page.
+    """Get number of active, pending, expired members from the Club Manager page.
 
     This is a slow operation (circa 10s), so get them all in one go.
     From the club manager page, return the values from these tabs:
@@ -101,10 +168,10 @@ def get_private_member_counts(
         browser.close()
         _log_info("Closed browser", start_time)
 
-        return _process_member_counts(raw_member_counts)
+        return _process_manager_member_counts(raw_member_counts)
 
 
-def _process_member_counts(member_counts: dict[str, str]) -> dict[str, int]:
+def _process_manager_member_counts(member_counts: dict[str, str]) -> dict[str, int]:
     """Process raw values.
 
     Values are blank if there aren't any members (although they appear as zeros
@@ -128,73 +195,6 @@ def _process_member_counts(member_counts: dict[str, str]) -> dict[str, int]:
         )
         raise ValueError(error_message)
     return processed_member_counts
-
-
-def get_public_club_info(club_id: str) -> PublicClubInfo:
-    """Return information from the club's public profile page.
-
-    Parameters
-    ----------
-    club_id
-        From the URL used to access club pages.
-
-    Returns
-    -------
-    PublicClubInfo
-    """
-    profile_url = f"{PROFILE_BASE_URL}{club_id}/"
-    r = requests.get(profile_url, timeout=REQUESTS_TIMEOUT)
-    r.raise_for_status()
-    if r.url != profile_url:
-        error_message = f"Redirected to unexpected URL {r.url}. Is `club_id` valid?"
-        raise ValueError(error_message)
-    profile_soup = BeautifulSoup(r.content, "html.parser")
-    return {
-        "club_name": _get_club_name_from_profile(profile_soup),
-        "total_members": _get_total_members_from_profile(profile_soup),
-    }
-
-
-def _get_club_name_from_profile(soup: BeautifulSoup) -> str:
-    """Return the club's name from profile page soup."""
-    club_name_h1 = soup.find("h1", class_="article__header__title-body__text")
-
-    # For type-checking purposes: ensures unambiguous type is passed
-    if not isinstance(club_name_h1, Tag):
-        raise TypeError
-
-    # For type-checking purposes: ensures unambiguous type is passed
-    if not isinstance(club_name_h1.string, str):
-        raise TypeError
-
-    return club_name_h1.string
-
-
-def _get_total_members_from_profile(soup: BeautifulSoup) -> int:
-    """Return the club's total members count from profile page soup."""
-    about_div = soup.find("div", id="about")
-    if not isinstance(about_div, Tag):
-        raise TypeError
-
-    # TypeError raised if string is not found as exact tag content
-    member_count_label = about_div.find(string="Total club members:")
-    if not isinstance(member_count_label, NavigableString):
-        raise TypeError
-
-    member_count_label_outer = member_count_label.parent
-
-    # For type-checking purposes: ensures unambiguous type is passed
-    if not isinstance(member_count_label_outer, Tag):
-        raise TypeError
-
-    member_count_label_outer2 = member_count_label_outer.parent
-
-    # For type-checking purposes: ensures unambiguous type is passed
-    if not isinstance(member_count_label_outer2, Tag):
-        raise TypeError
-
-    strings = list(member_count_label_outer2.strings)
-    return int(strings[-1])
 
 
 def _log_info(message: str, start_time: float) -> None:
