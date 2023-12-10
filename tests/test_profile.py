@@ -1,7 +1,10 @@
 """Tests for 'profile' functions."""
 from bs4 import BeautifulSoup
 
-from britishcycling_clubs import _club_name_from_profile, _total_members_from_profile
+from britishcycling_clubs.profile import (
+    _club_name_from_profile,
+    _total_members_from_profile,
+)
 
 # Partial extract from actual page
 PROFILE_PAGE_EXTRACT = """

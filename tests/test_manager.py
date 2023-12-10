@@ -1,7 +1,7 @@
 """Tests for 'manager' functions."""
 import pytest
 
-from britishcycling_clubs import _process_manager_member_counts
+from britishcycling_clubs.manager import _process_manager_member_counts
 
 
 def test__process_manager_member_counts__happy_path() -> None:
