@@ -15,10 +15,18 @@ Historic and pre-release versions aren't necessarily included.
 - **BREAKING CHANGE**: Functions renamed to `get_club_profile_info()` and 
   `get_manager_member_counts()`
 
+- Update dev/test dependencies: isort, mypy; CI dependencies actions/checkout, 
+  actions/setup-python
+
+
 ### Added
 
-- `get_public_club_info()`: raise exception on redirect; basic unit tests
+- `get_public_club_info()`: raise exception on redirect; better error messages; basic 
+  unit tests
+ 
 - `get_private_member_counts()` basic unit tests
+ 
+- Enable logging for Playwright operations in example script
 
 ### Fixed
 
