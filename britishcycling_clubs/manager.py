@@ -4,6 +4,7 @@ from __future__ import annotations
 import logging
 import time
 from pprint import pformat
+from typing import TypedDict, TypeGuard
 
 from playwright.sync_api import sync_playwright
 
@@ -12,12 +13,20 @@ MANAGER_BASE_URL = "https://www.britishcycling.org.uk/uac/connect?success_url=/d
 log = logging.getLogger(__name__)
 
 
+class MemberCounts(TypedDict):
+    """Return type for `get_manager_member_counts()`."""
+
+    active: int
+    pending: int
+    expired: int
+
+
 def get_manager_member_counts(
     club_id: str,
     username: str,
     password: str,
     manager_page_load_delay: int = 5,
-) -> dict[str, int]:
+) -> MemberCounts:
     """Get number of active, pending, expired members from the Club Manager page.
 
     This is a slow operation (circa 10s), so get them all in one go.
@@ -89,10 +98,10 @@ def get_manager_member_counts(
         browser.close()
         _log_info("Closed browser", start_time)
 
-        return _process_manager_member_counts(raw_member_counts)
+    return _process_manager_member_counts(raw_member_counts)
 
 
-def _process_manager_member_counts(member_counts: dict[str, str]) -> dict[str, int]:
+def _process_manager_member_counts(member_counts: dict[str, str]) -> MemberCounts:
     """Process raw values.
 
     Values are blank if there aren't any members (although they appear as zeros
@@ -113,7 +122,17 @@ def _process_manager_member_counts(member_counts: dict[str, str]) -> dict[str, i
             "Consider increasing `manager_page_load_delay`."
         )
         raise ValueError(error_message)
+
+    if not is_membercounts(processed_member_counts):
+        raise TypeError
     return processed_member_counts
+
+
+def is_membercounts(val: object) -> TypeGuard[MemberCounts]:
+    """Check return type."""
+    if isinstance(val, dict):
+        return all(isinstance(v, int) for v in val.values())
+    return False
 
 
 def _log_info(message: str, start_time: float) -> None:
