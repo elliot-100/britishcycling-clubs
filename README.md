@@ -50,12 +50,12 @@ def get_manager_member_counts(
     manager_page_load_delay: int = 5,
 ) -> dict[str, int]:
 ```
-Get numbers of active, pending, expired members from the club manager page.
+Get numbers of active, new, expired members from the club manager page.
 
 Specifically, returns the counts from these tabs:
 
 - Active Club Members
-- New [i.e. pending] Club Subscriptions
+- New Club Subscriptions
 - Expired Club Members
 
 This takes about 10s.

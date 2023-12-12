@@ -80,8 +80,8 @@ def get_manager_member_counts(
 
         raw_member_counts = {
             "active": page.locator("id=members-active-count").inner_text(),
-            "pending": page.locator("id=members-new-count").inner_text(),
             "expired": page.locator("id=members-expired-count").inner_text(),
+            "new": page.locator("id=members-new-count").inner_text(),
         }
 
         _log_info("Raw data retrieved", start_time)
