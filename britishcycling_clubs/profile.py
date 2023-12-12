@@ -45,7 +45,8 @@ def _club_name_from_profile(soup: BeautifulSoup) -> str:
     """Return the club's name from profile page soup."""
     club_name_h1 = soup.find("h1", class_="article__header__title-body__text")
     if not club_name_h1:
-        raise ValueError("Can't find club name heading")
+        error_msg = "Can't find club name heading"
+        raise ValueError(error_msg)
     if not isinstance(club_name_h1, Tag):  # type-narrowing
         raise TypeError
     if not isinstance(club_name_h1.string, str):  # type-narrowing
@@ -58,13 +59,15 @@ def _total_members_from_profile(soup: BeautifulSoup) -> int:
     """Return the club's total members count from profile page soup."""
     about_div = soup.find("div", id="about")
     if not about_div:
-        raise ValueError("Can't find 'about' div")
+        error_msg = "Can't find 'about' div"
+        raise ValueError(error_msg)
     if not isinstance(about_div, Tag):  # type-narrowing
         raise TypeError
 
     member_count_label = about_div.find(string="Total club members:")
     if not member_count_label:
-        raise ValueError("Can't find 'Total club members:'")
+        error_msg = "Can't find 'Total club members:'"
+        raise ValueError(error_msg)
 
     member_count_label_outer = member_count_label.parent
     if not isinstance(member_count_label_outer, Tag):  # type-narrowing
