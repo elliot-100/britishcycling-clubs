@@ -16,5 +16,5 @@ config_filepath = Path(__file__).with_name(CONFIG_FILE)
 with Path.open(config_filepath, encoding="utf-8") as file:
     config.read_file(file)
 
-info = bc.get_club_profile_info(config["club"]["id"])
+info = bc.get_profile_info(config["club"]["id"])
 pprint.pprint(info)
