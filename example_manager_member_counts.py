@@ -5,6 +5,7 @@ Loads credentials from `config.ini`, retrieves and prints info.
 
 import configparser
 import logging
+import pprint
 from pathlib import Path
 
 import britishcycling_clubs as bc
@@ -25,7 +26,4 @@ member_counts = bc.get_manager_member_counts(
     config["club"]["username"],
     config["club"]["password"],
 )
-
-print(f"{member_counts['active']=}")
-print(f"{member_counts['pending']=}")
-print(f"{member_counts['expired']=}")
+pprint.pprint(member_counts)

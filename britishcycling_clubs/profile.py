@@ -9,14 +9,14 @@ PROFILE_BASE_URL = "https://www.britishcycling.org.uk/club/profile/"
 REQUESTS_TIMEOUT = 10  # For `requests` library operations
 
 
-class ClubProfileInfo(TypedDict):
-    """Return type for `get_club_profile_info()` function."""
+class ProfileInfo(TypedDict):
+    """Return type for `get_profile_info()` function."""
 
     club_name: str
     total_members: int
 
 
-def get_club_profile_info(club_id: str) -> ClubProfileInfo:
+def get_profile_info(club_id: str) -> ProfileInfo:
     """Return information from the club's public profile page.
 
     Parameters
@@ -26,7 +26,7 @@ def get_club_profile_info(club_id: str) -> ClubProfileInfo:
 
     Returns
     -------
-    ClubProfileInfo
+    ProfileInfo
     """
     profile_url = f"{PROFILE_BASE_URL}{club_id}/"
     r = requests.get(profile_url, timeout=REQUESTS_TIMEOUT)

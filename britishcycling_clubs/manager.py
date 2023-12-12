@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import logging
 import time
+from pprint import pformat
 
 from playwright.sync_api import sync_playwright
 
@@ -108,9 +109,7 @@ def _process_manager_member_counts(member_counts: dict[str, str]) -> dict[str, i
     if processed_member_counts["active"] == 0:
         error_message = (
             "Active member count was zero; assuming error. "
-            f"{processed_member_counts['active']=}; "
-            f"{processed_member_counts['pending']=}; "
-            f"{processed_member_counts['expired']=}. "
+            f"{pformat(processed_member_counts)}. "
             "Consider increasing `manager_page_load_delay`."
         )
         raise ValueError(error_message)

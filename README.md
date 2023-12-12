@@ -70,7 +70,7 @@ club member counts from the club's Club Manager pages.
 ### Get info from a club's profile page
 
 ```
-get_club_profile_info(club_id: str) -> dict[str, int | str]
+get_profile_info(club_id: str) -> dict[str, int | str]
 ```
 Return information from the club's public profile page; doesn't require login.
 
@@ -79,6 +79,6 @@ Specifically, returns these values:
 - Club name
 - Total club members
 
-Example script `example_club_profile_info.py` loads club ID from `config.ini` (you'll
+Example script `example_profile_info.py` loads club ID from `config.ini` (you'll
 need to copy `config_dist.ini`, populate club ID only and rename).  It 
 then retrieves and prints the club name and total member count.
