@@ -20,7 +20,7 @@ class MemberCounts(TypedDict):
     """Return type for `get_manager_member_counts()`."""
 
     active: int
-    pending: int
+    new: int
     expired: int
 
 
@@ -30,13 +30,13 @@ def get_manager_member_counts(
     password: str,
     manager_page_load_delay: int = 5,
 ) -> MemberCounts:
-    """Get number of active, pending, expired members from the Club Manager page.
+    """Get number of active, new, expired members from the Club Manager page.
 
     This is a slow operation (circa 10s), so get them all in one go.
     From the club manager page, return the values from these tabs:
 
     - 'Active Club Members'
-    - 'New [i.e. pending] Club Subscriptions'
+    - 'New Club Subscriptions'
     - 'Expired Club Members'
 
     Parameters
@@ -57,7 +57,7 @@ def get_manager_member_counts(
     Returns
     -------
     dict[str, int]
-        keys: 'active', 'pending', 'expired'
+        keys: 'active', 'new', 'expired'
         values: corresponding ints
 
     Raises
@@ -117,7 +117,7 @@ def _process_manager_member_counts(member_counts: dict[str, str]) -> MemberCount
     }
     # Assume an error if zero 'active' value.
     # 'active' appears to be the slowest value to populate.
-    # 'pending' will often be genuinely zero; 'expired' could be genuinely zero
+    # 'new' will often be genuinely zero; 'expired' could be genuinely zero
     if processed_member_counts["active"] == 0:
         error_message = (
             "Active member count was zero; assuming error. "

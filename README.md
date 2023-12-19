@@ -62,8 +62,7 @@ This takes about 10s.
 
 Example script `example_manager_member_counts.py` loads club ID and credentials from
 `config.ini` (you'll need to copy `config_dist.ini`, populate and rename to 
-`config.
-ini`). It then retrieves and prints the number of active, expired and new/pending 
+`config.ini`). It then retrieves and prints the number of active, expired and new 
 club member counts from the club's Club Manager pages. 
 
 
