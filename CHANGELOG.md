@@ -8,7 +8,7 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 Historic and pre-release versions aren't necessarily included.
 
 
-## [UNRELEASED] - 2023-12-19
+## [0.8.1] - 2023-12-19
 
 ### Fixed
 
@@ -159,7 +159,7 @@ Historic and pre-release versions aren't necessarily included.
 - Update dev dependencies: mypy, pylint, test, types-requests, types-beautifulsoup4
 
 
-[UNRELEASED]: https://github.com/elliot-100/britishcycling-clubs/compare/v0.8.0...HEAD
+[0.8.1]: https://github.com/elliot-100/britishcycling-clubs/compare/v0.8.0...v0.8.1
 [0.8.0]: https://github.com/elliot-100/britishcycling-clubs/compare/v0.7.0...v0.8.0
 [0.7.0]: https://github.com/elliot-100/britishcycling-clubs/compare/v0.6.0...v0.7.0
 [0.6.0]: https://github.com/elliot-100/britishcycling-clubs/compare/v0.5.0...v0.6.0
