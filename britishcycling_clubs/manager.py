@@ -4,9 +4,12 @@ from __future__ import annotations
 import logging
 import time
 from pprint import pformat
-from typing import TypedDict, TypeGuard
+from typing import TYPE_CHECKING, TypedDict
 
 from playwright.sync_api import sync_playwright
+
+if TYPE_CHECKING:
+    from typing_extensions import TypeGuard
 
 MANAGER_BASE_URL = "https://www.britishcycling.org.uk/uac/connect?success_url=/dashboard/club/membership?club_id="
 
