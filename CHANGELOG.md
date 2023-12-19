@@ -8,12 +8,21 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 Historic and pre-release versions aren't necessarily included.
 
 
-## [0.8.0] - 2023-12-19
+## [UNRELEASED] - 2023-12-19
+
+### Fixed
+
+- `get_manager_member_counts()` still returned `["pending"]` instead of
+  `["new"]`.
+
+
+- ## [0.8.0] - 2023-12-19
 
 ### Changed
 
 - **BREAKING CHANGES**: Functions renamed to `get_profile_info()` and 
-  `get_manager_member_counts()`. `get_manager_member_counts()` returns `'new'` instead of `'active'`.
+  `get_manager_member_counts()`. `get_manager_member_counts()` returns `["new"]`
+  instead of `["pending"]`.
 
 - Update dev/test dependencies: isort, mypy; CI dependencies actions/checkout, 
   actions/setup-python
@@ -150,6 +159,7 @@ Historic and pre-release versions aren't necessarily included.
 - Update dev dependencies: mypy, pylint, test, types-requests, types-beautifulsoup4
 
 
+[UNRELEASED]: https://github.com/elliot-100/britishcycling-clubs/compare/v0.8.0...HEAD
 [0.8.0]: https://github.com/elliot-100/britishcycling-clubs/compare/v0.7.0...v0.8.0
 [0.7.0]: https://github.com/elliot-100/britishcycling-clubs/compare/v0.6.0...v0.7.0
 [0.6.0]: https://github.com/elliot-100/britishcycling-clubs/compare/v0.5.0...v0.6.0
