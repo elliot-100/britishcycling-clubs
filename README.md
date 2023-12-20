@@ -25,12 +25,12 @@ Install from PyPI, e.g:
 `pip install britishcycling-clubs`
 
 Some functions use [Playwright](https://playwright.dev/python/) to automate a headless Chromium browser. This needs
-to be installed:
+to be installed separately before first use, and after most Playwright updates, e.g.:
 
 `playwright install chromium`
 
 If you're installing in e.g. a bare-bones server/CI environment, you'll probably be 
-prompted to install system dependencies, which you can do with:
+prompted to install system dependencies, which you can do with e.g.:
 
 `playwright install-deps chromium`
 
@@ -40,10 +40,29 @@ See also https://playwright.dev/python/docs/browsers#install-system-dependencies
 ## Usage
 
 
+### Get info from a club's profile page
+
+```
+britishcycling_clubs.get_profile_info(
+    club_id: str
+) -> dict[str, int | str]
+```
+Return information from the club's public profile page; doesn't require login.
+
+Specifically, returns these values:
+
+- Club name
+- Total club members
+
+Example script `example_profile_info.py` loads club ID from `config.ini` (you'll
+need to copy `config_dist.ini`, populate club ID only and rename).  It 
+then retrieves and prints the club name and total member count.
+
+
 ### Get member counts from a club's Club Manager pages
 
 ```
-def get_manager_member_counts(
+britishcycling_clubs.get_manager_member_counts(
     club_id: str,
     username: str,
     password: str,
@@ -66,18 +85,3 @@ Example script `example_manager_member_counts.py` loads club ID and credentials 
 club member counts from the club's Club Manager pages. 
 
 
-### Get info from a club's profile page
-
-```
-get_profile_info(club_id: str) -> dict[str, int | str]
-```
-Return information from the club's public profile page; doesn't require login.
-
-Specifically, returns these values:
-
-- Club name
-- Total club members
-
-Example script `example_profile_info.py` loads club ID from `config.ini` (you'll
-need to copy `config_dist.ini`, populate club ID only and rename).  It 
-then retrieves and prints the club name and total member count.
