@@ -5,8 +5,8 @@ from typing import TypedDict
 import requests
 from bs4 import BeautifulSoup, Tag
 
-PROFILE_BASE_URL = "https://www.britishcycling.org.uk/club/profile/"
-REQUESTS_TIMEOUT = 10  # For `requests` library operations
+_PROFILE_BASE_URL = "https://www.britishcycling.org.uk/club/profile/"
+_REQUESTS_TIMEOUT = 10  # For `requests` library operations
 
 
 class ProfileInfo(TypedDict):
@@ -26,10 +26,10 @@ def get_profile_info(club_id: str) -> ProfileInfo:
 
     Returns
     -------
-    ProfileInfo
+    _ProfileInfo
     """
-    profile_url = f"{PROFILE_BASE_URL}{club_id}/"
-    r = requests.get(profile_url, timeout=REQUESTS_TIMEOUT)
+    profile_url = f"{_PROFILE_BASE_URL}{club_id}/"
+    r = requests.get(profile_url, timeout=_REQUESTS_TIMEOUT)
     r.raise_for_status()
     if r.url != profile_url:
         error_message = f"Redirected to unexpected URL {r.url}. Is `club_id` valid?"

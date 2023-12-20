@@ -11,7 +11,7 @@ from playwright.sync_api import sync_playwright
 if TYPE_CHECKING:
     from typing_extensions import TypeGuard
 
-MANAGER_BASE_URL = "https://www.britishcycling.org.uk/uac/connect?success_url=/dashboard/club/membership?club_id="
+_MANAGER_VIA_LOGIN_BASE_URL = "https://www.britishcycling.org.uk/uac/connect?success_url=/dashboard/club/membership?club_id="
 
 log = logging.getLogger(__name__)
 
@@ -66,8 +66,6 @@ def get_manager_member_counts(
     values hadn't populated correctly.
 
     """
-    club_manager_url = f"{MANAGER_BASE_URL}{club_id}/"
-
     start_time = time.time()
     _log_info("Started timer for Playwright operations", start_time)
 
@@ -77,7 +75,7 @@ def get_manager_member_counts(
         page = browser.new_page()
 
         # login page
-        page.goto(club_manager_url)
+        page.goto(club_manager_url_via_login(club_id))
         page.locator("id=username2").fill(username)
         page.locator("id=password2").fill(password)
         page.locator("id=login_button").click()
@@ -104,6 +102,17 @@ def get_manager_member_counts(
     return _process_manager_member_counts(raw_member_counts)
 
 
+def club_manager_url_via_login(club_id: str) -> str:
+    """Return URL of club's Club Manager page.
+
+    Parameters
+    ----------
+    club_id
+        From the URL used to access club pages.
+    """
+    return f"{_MANAGER_VIA_LOGIN_BASE_URL}{club_id}/"
+
+
 def _process_manager_member_counts(member_counts: dict[str, str]) -> MemberCounts:
     """Process raw values.
 
@@ -126,12 +135,12 @@ def _process_manager_member_counts(member_counts: dict[str, str]) -> MemberCount
         )
         raise ValueError(error_message)
 
-    if not is_membercounts(processed_member_counts):
+    if not _is_membercounts(processed_member_counts):
         raise TypeError
     return processed_member_counts
 
 
-def is_membercounts(val: object) -> TypeGuard[MemberCounts]:
+def _is_membercounts(val: object) -> TypeGuard[MemberCounts]:
     """Check return type."""
     if isinstance(val, dict):
         return all(isinstance(v, int) for v in val.values())
