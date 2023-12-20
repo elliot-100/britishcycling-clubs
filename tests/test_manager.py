@@ -1,7 +1,18 @@
 """Tests for 'manager' functions."""
 import pytest
 
-from britishcycling_clubs.manager import _process_manager_member_counts
+from britishcycling_clubs.manager import (
+    _process_manager_member_counts,
+    club_manager_url_via_login,
+)
+
+
+def test_club_manager_url_via_login__happy_path() -> None:
+    """Test that correct URL is returned."""
+    assert (
+        club_manager_url_via_login("000")
+        == "https://www.britishcycling.org.uk/uac/connect?success_url=/dashboard/club/membership?club_id=000/"
+    )
 
 
 def test__process_manager_member_counts__happy_path() -> None:
