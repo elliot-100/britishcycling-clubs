@@ -26,9 +26,11 @@ def get_profile_info(club_id: str) -> ProfileInfo:
 
     Returns
     -------
-    _ProfileInfo
+    dict[str, str | int]
+        keys: 'club_name', 'total_members'
+        values: corresponding str or int
     """
-    profile_url = f"{_PROFILE_BASE_URL}{club_id}/"
+    profile_url = club_profile_url(club_id)
     r = requests.get(profile_url, timeout=_REQUESTS_TIMEOUT)
     r.raise_for_status()
     if r.url != profile_url:
@@ -39,6 +41,17 @@ def get_profile_info(club_id: str) -> ProfileInfo:
         "club_name": _club_name_from_profile(profile_soup),
         "total_members": _total_members_from_profile(profile_soup),
     }
+
+
+def club_profile_url(club_id: str) -> str:
+    """Return URL of club's profile page.
+
+    Parameters
+    ----------
+    club_id
+        From the URL used to access club pages.
+    """
+    return f"{_PROFILE_BASE_URL}{club_id}/"
 
 
 def _club_name_from_profile(soup: BeautifulSoup) -> str:

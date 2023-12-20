@@ -39,8 +39,15 @@ See also https://playwright.dev/python/docs/browsers#install-system-dependencies
 
 ## Usage
 
+### Club profile URL
 
-### Get info from a club's profile page
+```
+britishcycling_clubs.club_profile_url(
+    club_id: str
+) -> str
+```
+
+### Get info from a club's profile
 
 ```
 britishcycling_clubs.get_profile_info(
@@ -49,17 +56,27 @@ britishcycling_clubs.get_profile_info(
 ```
 Return information from the club's public profile page; doesn't require login.
 
-Specifically, returns these values:
+Specifically, return a dict with these keys and corresponding values:
 
-- Club name
-- Total club members
+- `"club_name"`: Club name
+- `"total_members"`: Total club members
 
 Example script `example_profile_info.py` loads club ID from `config.ini` (you'll
-need to copy `config_dist.ini`, populate club ID only and rename).  It 
-then retrieves and prints the club name and total member count.
+need to copy `config_dist.ini`, populate club ID only and rename).
+It then retrieves and prints the club name and total member count.
 
 
-### Get member counts from a club's Club Manager pages
+### Club manager URL (via login)
+
+```
+britishcycling_clubs.club_manager_url_via_login(
+    club_id: str
+) -> str
+```
+URL which redirects to Club Manager URL, via login if needed.
+
+
+### Get member counts from Club Manager
 
 ```
 britishcycling_clubs.get_manager_member_counts(
@@ -71,17 +88,17 @@ britishcycling_clubs.get_manager_member_counts(
 ```
 Get numbers of active, new, expired members from the club manager page.
 
-Specifically, returns the counts from these tabs:
+Specifically, return a dict with these keys, and values from badges on corresponding
+tabs:
 
-- Active Club Members
-- New Club Subscriptions
-- Expired Club Members
+- `"active"`: Active Club Members
+- `"expired"`: Expired Club Members
+- `"new"`: New Club Subscriptions
 
 This takes about 10s.
 
 Example script `example_manager_member_counts.py` loads club ID and credentials from
 `config.ini` (you'll need to copy `config_dist.ini`, populate and rename to 
-`config.ini`). It then retrieves and prints the number of active, expired and new 
+`config.ini`).
+It then retrieves and prints the number of active, expired and new 
 club member counts from the club's Club Manager pages. 
-
-

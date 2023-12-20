@@ -8,12 +8,19 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 Historic and pre-release versions aren't necessarily included.
 
 
+## [UNRELEASED] - TBC
+
+### Added
+
+- `club_profile_url` and `club_manager_url_via_login()` 
+
+
 ## [0.8.1] - 2023-12-19
 
 ### Fixed
 
 - `get_manager_member_counts()` still returned `["pending"]` instead of
-  `["new"]`.
+  `["new"]`
 
 
 ## [0.8.0] - 2023-12-19
@@ -22,11 +29,10 @@ Historic and pre-release versions aren't necessarily included.
 
 - **BREAKING CHANGES**: Functions renamed to `get_profile_info()` and 
   `get_manager_member_counts()`. `get_manager_member_counts()` returns `["new"]`
-  instead of `["pending"]`.
+  instead of `["pending"]`
 
 - Update dev/test dependencies: isort, mypy; CI dependencies actions/checkout, 
   actions/setup-python
-
 
 ### Added
 
@@ -57,7 +63,8 @@ Historic and pre-release versions aren't necessarily included.
 
 ### Changed
 
-- `get_private_member_counts()`: raise exception if zero 'active members' would be returned.
+- `get_private_member_counts()`: raise exception if zero 'active members' would be 
+  returned
 
 - Update dev/test dependencies: mypy, ruff
 

@@ -4,7 +4,16 @@ from bs4 import BeautifulSoup
 from britishcycling_clubs.profile import (
     _club_name_from_profile,
     _total_members_from_profile,
+    club_profile_url,
 )
+
+
+def test_club_profile_url__happy_path() -> None:
+    """Test that correct URL is returned."""
+    assert (
+        club_profile_url("000") == "https://www.britishcycling.org.uk/club/profile/000/"
+    )
+
 
 # Partial extract from actual page
 PROFILE_PAGE_EXTRACT = """
