@@ -1,4 +1,5 @@
 """Tests for 'profile' functions."""
+
 from bs4 import BeautifulSoup
 
 from britishcycling_clubs.profile import (

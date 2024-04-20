@@ -1,4 +1,5 @@
 """Tests for 'manager' functions."""
+
 import pytest
 
 from britishcycling_clubs.manager import (
