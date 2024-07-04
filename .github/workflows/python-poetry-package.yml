@@ -42,3 +42,7 @@ jobs:
       run: |
         source $VENV
         mypy .
+    - name: Test with pytest
+      run: |
+        source $VENV
+        pytest
