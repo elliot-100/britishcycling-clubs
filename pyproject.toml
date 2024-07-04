@@ -17,7 +17,7 @@ requests = "^2.23.1"
 playwright = "^1.39.0"
 
 [tool.poetry.group.dev.dependencies]
-ruff = "^0.4.1"
+ruff = ">=0.4.1,<0.6.0"
 
 [tool.poetry.group.test.dependencies]
 mypy = "^1.7.1"
