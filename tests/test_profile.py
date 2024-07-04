@@ -39,11 +39,17 @@ PROFILE_PAGE_EXTRACT = """
 
 def test__club_name_from_profile__happy_path() -> None:
     """Test that club name is returned from 'profile' soup."""
-    profile_soup = BeautifulSoup(PROFILE_PAGE_EXTRACT)
+    profile_soup = BeautifulSoup(
+        PROFILE_PAGE_EXTRACT,
+        "html.parser",
+    )
     assert _club_name_from_profile(profile_soup) == "My Cycling Club"
 
 
 def test__total_members_from_profile__happy_path() -> None:
     """Test that total members count is returned from 'profile' soup."""
-    profile_soup = BeautifulSoup(PROFILE_PAGE_EXTRACT)
+    profile_soup = BeautifulSoup(
+        PROFILE_PAGE_EXTRACT,
+        "html.parser",
+    )
     assert _total_members_from_profile(profile_soup) == 42
