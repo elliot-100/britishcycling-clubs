@@ -4,13 +4,13 @@ updates:
   - package-ecosystem: "pip"
     directory: "/"  # Location of package manifests
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     assignees:
       - "elliot-100"
 
   - package-ecosystem: "github-actions" # only supports updates using the GitHub repository syntax, such as actions/checkout@v3
     directory: "/"  # Location of package manifests
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     assignees:
       - "elliot-100"
