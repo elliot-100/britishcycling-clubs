@@ -11,6 +11,10 @@ Historic and pre-release versions aren't necessarily included.
 
 ### Changed
 
+- *BREAKING CHANGES:*
+  - `get_profile_info()` returns`ProfileInfo`  `NamedTuple` instead of dict 
+  - `get_manager_member_counts()` returns `ManagerMemberCounts` `NamedTuple` 
+    instead of dict 
 - Only get logger once, rather than for every log message
 - Docs: docstring simplification, improvements
 - Dev dependencies: add pdoc
