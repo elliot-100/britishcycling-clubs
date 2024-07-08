@@ -14,8 +14,6 @@ if TYPE_CHECKING:
 
 _MANAGER_VIA_LOGIN_BASE_URL = "https://www.britishcycling.org.uk/uac/connect?success_url=/dashboard/club/membership?club_id="
 
-log = logging.getLogger(__name__)
-
 
 class MemberCounts(TypedDict):
     """Return type for `get_manager_member_counts()`."""
@@ -152,4 +150,5 @@ def _log_info(message: str, start_time: float) -> None:
     """Add INFO level log entry, with elapsed time since `start_time`."""
     elapsed_time = time.time() - start_time
     log_message = f"Elapsed: {elapsed_time:.1f} s. {message}"
+    log = logging.getLogger(__name__)
     log.info(log_message)

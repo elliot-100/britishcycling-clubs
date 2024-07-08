@@ -22,6 +22,7 @@ Historic and pre-release versions aren't necessarily included.
 
 ### Fixed
 
+- Removed unintended public logging constant
 - Tests: warnings because Beautiful Soup parser wasn't specified
 - Tests didn't use public API for imports
 
