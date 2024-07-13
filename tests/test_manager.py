@@ -2,7 +2,7 @@
 
 import pytest
 
-from britishcycling_clubs import club_manager_url_via_login
+from britishcycling_clubs import manager_url_via_login
 from britishcycling_clubs.manager import _process_manager_member_counts
 
 
@@ -11,7 +11,7 @@ def test_club_manager_url_via_login__happy_path() -> None:
     # arrange
     club_id = "000"
     # act
-    url = club_manager_url_via_login(club_id)
+    url = manager_url_via_login(club_id)
     # act
     assert (
         url

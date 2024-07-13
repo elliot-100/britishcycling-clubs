@@ -14,7 +14,9 @@ Historic and pre-release versions aren't necessarily included.
 - *BREAKING CHANGES:*
   - `get_profile_info()` returns`ProfileInfo`  `NamedTuple` instead of dict 
   - `get_manager_member_counts()` returns `ManagerMemberCounts` `NamedTuple` 
-    instead of dict 
+    instead of dict
+  - `club_manager_url_via_login()` renamed to `manager_url_via_login()`
+  - `club_profile_url()` renamed to `profile_url()`
 - Only get logger once, rather than for every log message
 - Docs: docstring simplification, improvements
 - Dev dependencies: add pdoc

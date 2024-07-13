@@ -68,7 +68,7 @@ def get_manager_member_counts(
         page = browser.new_page()
 
         # login page
-        page.goto(club_manager_url_via_login(club_id))
+        page.goto(manager_url_via_login(club_id))
         page.locator("id=username2").fill(username)
         page.locator("id=password2").fill(password)
         page.locator("id=login_button").click()
@@ -96,7 +96,7 @@ def get_manager_member_counts(
     return _process_manager_member_counts(raw_member_counts)
 
 
-def club_manager_url_via_login(club_id: str) -> str:
+def manager_url_via_login(club_id: str) -> str:
     """Return URL of club's Club Manager page.
 
     Parameters

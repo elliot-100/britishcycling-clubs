@@ -33,10 +33,10 @@ def get_profile_info(club_id: str) -> ProfileInfo:
     `ValueError` :
         if information can't be located.
     """
-    profile_url = club_profile_url(club_id)
-    r = requests.get(profile_url, timeout=_REQUESTS_TIMEOUT)
+    url = profile_url(club_id)
+    r = requests.get(url, timeout=_REQUESTS_TIMEOUT)
     r.raise_for_status()
-    if r.url != profile_url:
+    if r.url != url:
         error_message = f"Redirected to unexpected URL {r.url}. Is `club_id` valid?"
         raise ValueError(error_message)
     profile_soup = BeautifulSoup(r.content, "html.parser")
@@ -46,7 +46,7 @@ def get_profile_info(club_id: str) -> ProfileInfo:
     )
 
 
-def club_profile_url(club_id: str) -> str:
+def profile_url(club_id: str) -> str:
     """Return URL of club's profile page.
 
     Parameters

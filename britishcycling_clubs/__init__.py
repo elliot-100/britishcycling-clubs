@@ -2,20 +2,20 @@
 
 from britishcycling_clubs.manager import (
     ManagerMemberCounts,
-    club_manager_url_via_login,
     get_manager_member_counts,
+    manager_url_via_login,
 )
 from britishcycling_clubs.profile import (
     ProfileInfo,
-    club_profile_url,
     get_profile_info,
+    profile_url,
 )
 
 __all__ = [
-    "club_profile_url",
+    "profile_url",
     "get_profile_info",
     "ProfileInfo",
-    "club_manager_url_via_login",
+    "manager_url_via_login",
     "get_manager_member_counts",
     "ManagerMemberCounts",
 ]
