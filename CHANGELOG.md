@@ -23,6 +23,7 @@ Historic and pre-release versions aren't necessarily included.
 ### Fixed
 
 - Tests: warnings because Beautiful Soup parser wasn't specified
+- Tests didn't use public API for imports
 
 
 ## [0.9.0] - 2023-12-20

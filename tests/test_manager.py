@@ -2,10 +2,8 @@
 
 import pytest
 
-from britishcycling_clubs.manager import (
-    _process_manager_member_counts,
-    club_manager_url_via_login,
-)
+from britishcycling_clubs import club_manager_url_via_login
+from britishcycling_clubs.manager import _process_manager_member_counts
 
 
 def test_club_manager_url_via_login__happy_path() -> None:
