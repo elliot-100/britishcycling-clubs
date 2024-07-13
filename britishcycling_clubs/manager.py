@@ -138,8 +138,37 @@ def _process_manager_member_counts(
     )
 
 
-def _log_info(logger: logging.Logger, message: str, start_time: float) -> None:
-    """Add log entry, with elapsed time since `start_time`."""
+def _log_debug(
+    logger: logging.Logger,
+    message: str,
+    start_time: float,
+) -> None:
+    """Add DEBUG log entry, with elapsed time since `start_time`."""
+    _log(logger=logger, level=logging.DEBUG, message=message, start_time=start_time)
+
+
+def _log_info(
+    logger: logging.Logger,
+    message: str,
+    start_time: float,
+) -> None:
+    """Add INFO log entry, with elapsed time since `start_time`."""
+    _log(logger=logger, level=logging.INFO, message=message, start_time=start_time)
+
+
+def _log(
+    *,
+    logger: logging.Logger,
+    level,
+    message: str,
+    start_time: float,
+) -> None:
+    """Add INFO or DEBUG log entry, with elapsed time since `start_time`."""
     elapsed_time = time.time() - start_time
     log_message = f"Elapsed: {elapsed_time:.1f} s. {message}"
-    logger.info(log_message)
+    if level == logging.INFO:
+        logger.info(log_message)
+    elif level == logging.DEBUG:
+        logger.debug(log_message)
+    else:
+        raise NotImplementedError("Unhandled logging level.")
