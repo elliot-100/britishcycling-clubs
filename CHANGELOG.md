@@ -7,6 +7,13 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 
 Historic and pre-release versions aren't necessarily included.
 
+# UNRELEASED - TBC
+
+### Changed
+
+- Only get logger once, rather than for every log message
+- Docs: docstring simplification, improvements
+
 
 ## [0.9.1] - 2024-07-13
 
