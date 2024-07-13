@@ -8,6 +8,22 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 Historic and pre-release versions aren't necessarily included.
 
 
+## [UNRELEASED] - TBC
+
+### Added
+
+- CI: run tests
+
+### Changed
+
+- Dev dependencies: use ruff for formatting; drop black + isort
+- CI: Reduce Dependabot frequency to monthly
+
+### Fixed
+
+- Tests: warnings because Beautiful Soup parser wasn't specified
+
+
 ## [0.9.0] - 2023-12-20
 
 ### Added
