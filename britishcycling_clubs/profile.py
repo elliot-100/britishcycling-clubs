@@ -1,4 +1,4 @@
-"""Functions to get info from a club's profile page."""
+"""Functions to get information from a club's profile page."""
 
 from typing import TypedDict
 
@@ -26,9 +26,12 @@ def get_profile_info(club_id: str) -> ProfileInfo:
 
     Returns
     -------
-    dict[str, str | int]
-        keys: 'club_name', 'total_members'
-        values: corresponding str or int
+    `ProfileInfo`
+
+    Raises
+    ------
+    `ValueError`
+        if information can't be located.
     """
     profile_url = club_profile_url(club_id)
     r = requests.get(profile_url, timeout=_REQUESTS_TIMEOUT)

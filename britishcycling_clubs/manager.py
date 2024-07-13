@@ -16,11 +16,14 @@ _MANAGER_VIA_LOGIN_BASE_URL = "https://www.britishcycling.org.uk/uac/connect?suc
 
 
 class MemberCounts(TypedDict):
-    """Return type for `get_manager_member_counts()`."""
+    """Return type for `get_manager_member_counts()` function."""
 
     active: int
+    """Value from 'Active Club Members' tab."""
     new: int
+    """Value from 'New Club Subscriptions' tab."""
     expired: int
+    """Value from 'Expired Club Members' tab."""
 
 
 def get_manager_member_counts(
@@ -32,11 +35,6 @@ def get_manager_member_counts(
     """Get number of active, new, expired members from the Club Manager page.
 
     This is a slow operation (circa 10s), so get them all in one go.
-    From the club manager page, return the values from these tabs:
-
-    - 'Active Club Members'
-    - 'New Club Subscriptions'
-    - 'Expired Club Members'
 
     Parameters
     ----------
@@ -55,15 +53,13 @@ def get_manager_member_counts(
 
     Returns
     -------
-    dict[str, int]
-        keys: 'active', 'new', 'expired'
-        values: corresponding ints
+    `MemberCounts`
 
     Raises
     ------
-    ValueError if zero 'active members' would be returned, as this probably means
-    values hadn't populated correctly.
-
+    `ValueError`
+        if zero 'active members' would be returned, as this probably means
+        values hadn't populated correctly.
     """
     start_time = time.time()
     _log_info("Started timer for Playwright operations", start_time)
