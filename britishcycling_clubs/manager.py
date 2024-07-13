@@ -61,11 +61,12 @@ def get_manager_member_counts(
         if zero 'active members' would be returned, as this probably means
         values hadn't populated correctly.
     """
+    logger = logging.getLogger(__name__)
     start_time = time.time()
-    _log_info("Started timer for Playwright operations", start_time)
+    _log_info(logger, "Started timer for Playwright operations", start_time)
 
     with sync_playwright() as p:
-        _log_info("Launching browser", start_time)
+        _log_info(logger, "Launching browser...", start_time)
         browser = p.chromium.launch()
         page = browser.new_page()
 
@@ -74,11 +75,12 @@ def get_manager_member_counts(
         page.locator("id=username2").fill(username)
         page.locator("id=password2").fill(password)
         page.locator("id=login_button").click()
-        _log_info("Got club manager page; logging in", start_time)
+        _log_info(logger, "Got club manager page; logging in", start_time)
 
         # allow time for club manager page to load fully,
         # as page.wait_for_load_state() is ineffective
         _log_info(
+            logger,
             f"Waiting extra {manager_page_load_delay} s for page load",
             start_time,
         )
@@ -90,9 +92,9 @@ def get_manager_member_counts(
             "new": page.locator("id=members-new-count").inner_text(),
         }
 
-        _log_info("Raw data retrieved", start_time)
+        _log_info(logger, "Raw data retrieved", start_time)
         browser.close()
-        _log_info("Closed browser", start_time)
+        _log_info(logger, "Closed browser", start_time)
 
     return _process_manager_member_counts(raw_member_counts)
 
@@ -142,9 +144,8 @@ def _is_membercounts(val: object) -> TypeGuard[MemberCounts]:
     return False
 
 
-def _log_info(message: str, start_time: float) -> None:
-    """Add INFO level log entry, with elapsed time since `start_time`."""
+def _log_info(logger: logging.Logger, message: str, start_time: float) -> None:
+    """Add log entry, with elapsed time since `start_time`."""
     elapsed_time = time.time() - start_time
     log_message = f"Elapsed: {elapsed_time:.1f} s. {message}"
-    log = logging.getLogger(__name__)
-    log.info(log_message)
+    logger.info(log_message)
