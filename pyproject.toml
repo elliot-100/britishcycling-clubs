@@ -11,10 +11,10 @@ include = ["CHANGELOG.md"]
 license = "GPL 3.0"
 
 [tool.poetry.dependencies]
-python = "^3.8"
-beautifulsoup4 = "^4.12.2"
-requests = "^2.23.1"
-playwright = "^1.39.0"
+python = ">=3.8"
+beautifulsoup4 = ">=4.12.2"
+requests = ">=2.23.1"
+playwright = ">=1.39.0"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.5.0"

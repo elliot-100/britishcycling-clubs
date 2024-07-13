@@ -16,6 +16,7 @@ Historic and pre-release versions aren't necessarily included.
 
 ### Changed
 
+- Dependencies: remove upper bounds when specifying versions 
 - Dev dependencies: use ruff for formatting; drop black + isort
 - CI: Reduce Dependabot frequency to monthly
 
