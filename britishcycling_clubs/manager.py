@@ -9,6 +9,8 @@ from typing import NamedTuple
 
 from playwright.sync_api import sync_playwright
 
+from britishcycling_clubs import _log_info
+
 _MANAGER_VIA_LOGIN_BASE_URL = "https://www.britishcycling.org.uk/uac/connect?success_url=/dashboard/club/membership?club_id="
 
 
@@ -142,10 +144,3 @@ def _process_manager_member_counts(
         expired=processed_counts["expired"],
         new=processed_counts["new"],
     )
-
-
-def _log_info(logger: logging.Logger, message: str, start_time: float) -> None:
-    """Add log entry, with elapsed time since `start_time`."""
-    elapsed_time = time.time() - start_time
-    log_message = f"Elapsed: {elapsed_time:.1f} s. {message}"
-    logger.info(log_message)
