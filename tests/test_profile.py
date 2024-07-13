@@ -2,10 +2,10 @@
 
 from bs4 import BeautifulSoup
 
+from britishcycling_clubs import club_profile_url
 from britishcycling_clubs.profile import (
     _club_name_from_profile,
     _total_members_from_profile,
-    club_profile_url,
 )
 
 
