@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "britishcycling-clubs"
-version = "0.9.0"
+version = "0.9.1"
 description = "Unofficial library to automate aspects of British/Scottish/Welsh Cycling's club Membership Manager system"
 authors = ["elliot-100 <3186037+elliot-100@users.noreply.github.com>"]
 readme = "README.md"
