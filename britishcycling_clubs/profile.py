@@ -1,6 +1,6 @@
 """Functions to get information from a club's profile page."""
 
-from typing import TypedDict
+from typing import NamedTuple
 
 import requests
 from bs4 import BeautifulSoup, Tag
@@ -9,8 +9,8 @@ _PROFILE_BASE_URL = "https://www.britishcycling.org.uk/club/profile/"
 _REQUESTS_TIMEOUT = 10  # For `requests` library operations
 
 
-class ProfileInfo(TypedDict):
-    """Return type for `get_profile_info()` function."""
+class ProfileInfo(NamedTuple):
+    """Returned by `get_profile_info()` function."""
 
     club_name: str
     total_members: int
@@ -33,20 +33,20 @@ def get_profile_info(club_id: str) -> ProfileInfo:
     `ValueError` :
         if information can't be located.
     """
-    profile_url = club_profile_url(club_id)
-    r = requests.get(profile_url, timeout=_REQUESTS_TIMEOUT)
+    url = profile_url(club_id)
+    r = requests.get(url, timeout=_REQUESTS_TIMEOUT)
     r.raise_for_status()
-    if r.url != profile_url:
+    if r.url != url:
         error_message = f"Redirected to unexpected URL {r.url}. Is `club_id` valid?"
         raise ValueError(error_message)
     profile_soup = BeautifulSoup(r.content, "html.parser")
-    return {
-        "club_name": _club_name_from_profile(profile_soup),
-        "total_members": _total_members_from_profile(profile_soup),
-    }
+    return ProfileInfo(
+        club_name=_club_name_from_profile(profile_soup),
+        total_members=_total_members_from_profile(profile_soup),
+    )
 
 
-def club_profile_url(club_id: str) -> str:
+def profile_url(club_id: str) -> str:
     """Return URL of club's profile page.
 
     Parameters

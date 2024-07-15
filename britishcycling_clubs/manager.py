@@ -5,25 +5,22 @@ from __future__ import annotations
 import logging
 import time
 from pprint import pformat
-from typing import TYPE_CHECKING, TypedDict
+from typing import NamedTuple
 
 from playwright.sync_api import sync_playwright
-
-if TYPE_CHECKING:
-    from typing_extensions import TypeGuard
 
 _MANAGER_VIA_LOGIN_BASE_URL = "https://www.britishcycling.org.uk/uac/connect?success_url=/dashboard/club/membership?club_id="
 
 
-class MemberCounts(TypedDict):
-    """Return type for `get_manager_member_counts()` function."""
+class ManagerMemberCounts(NamedTuple):
+    """Returned by `get_manager_member_counts()` function."""
 
     active: int
     """Value from 'Active Club Members' tab."""
-    new: int
-    """Value from 'New Club Subscriptions' tab."""
     expired: int
     """Value from 'Expired Club Members' tab."""
+    new: int
+    """Value from 'New Club Subscriptions' tab."""
 
 
 def get_manager_member_counts(
@@ -31,7 +28,7 @@ def get_manager_member_counts(
     username: str,
     password: str,
     manager_page_load_delay: int = 5,
-) -> MemberCounts:
+) -> ManagerMemberCounts:
     """Get number of active, new, expired members from the Club Manager page.
 
     This is a slow operation (circa 10s), so get them all in one go.
@@ -71,7 +68,7 @@ def get_manager_member_counts(
         page = browser.new_page()
 
         # login page
-        page.goto(club_manager_url_via_login(club_id))
+        page.goto(manager_url_via_login(club_id))
         page.locator("id=username2").fill(username)
         page.locator("id=password2").fill(password)
         page.locator("id=login_button").click()
@@ -99,7 +96,7 @@ def get_manager_member_counts(
     return _process_manager_member_counts(raw_member_counts)
 
 
-def club_manager_url_via_login(club_id: str) -> str:
+def manager_url_via_login(club_id: str) -> str:
     """Return URL of club's Club Manager page.
 
     Parameters
@@ -110,7 +107,9 @@ def club_manager_url_via_login(club_id: str) -> str:
     return f"{_MANAGER_VIA_LOGIN_BASE_URL}{club_id}/"
 
 
-def _process_manager_member_counts(member_counts: dict[str, str]) -> MemberCounts:
+def _process_manager_member_counts(
+    counts: dict[str, str],
+) -> ManagerMemberCounts:
     """Process raw values.
 
     Values are blank if there aren't any members (although they appear as zeros
@@ -118,30 +117,25 @@ def _process_manager_member_counts(member_counts: dict[str, str]) -> MemberCount
 
     Raise exception if zero 'active members' value.
     """
-    processed_member_counts = {
-        key: int(value) if value else 0 for key, value in member_counts.items()
+    processed_counts = {
+        key: int(value) if value else 0 for key, value in counts.items()
     }
     # Assume an error if zero 'active' value.
     # 'active' appears to be the slowest value to populate.
     # 'new' will often be genuinely zero; 'expired' could be genuinely zero
-    if processed_member_counts["active"] == 0:
+    if processed_counts["active"] == 0:
         error_message = (
             "Active member count was zero; assuming issue with data collection. "
-            f"{pformat(processed_member_counts)}. "
+            f"{pformat(processed_counts)}. "
             "Consider increasing `manager_page_load_delay`."
         )
         raise ValueError(error_message)
 
-    if not _is_membercounts(processed_member_counts):
-        raise TypeError
-    return processed_member_counts
-
-
-def _is_membercounts(val: object) -> TypeGuard[MemberCounts]:
-    """Check return type."""
-    if isinstance(val, dict):
-        return all(isinstance(v, int) for v in val.values())
-    return False
+    return ManagerMemberCounts(
+        active=processed_counts["active"],
+        expired=processed_counts["expired"],
+        new=processed_counts["new"],
+    )
 
 
 def _log_info(logger: logging.Logger, message: str, start_time: float) -> None:

@@ -2,38 +2,47 @@
 
 import pytest
 
-from britishcycling_clubs import club_manager_url_via_login
+from britishcycling_clubs import manager_url_via_login
 from britishcycling_clubs.manager import _process_manager_member_counts
 
 
 def test_club_manager_url_via_login__happy_path() -> None:
     """Test that correct URL is returned."""
+    # arrange
+    club_id = "000"
+    # act
+    url = manager_url_via_login(club_id)
+    # act
     assert (
-        club_manager_url_via_login("000")
+        url
         == "https://www.britishcycling.org.uk/uac/connect?success_url=/dashboard/club/membership?club_id=000/"
     )
 
 
 def test__process_manager_member_counts__happy_path() -> None:
     """Test that raw values are converted to ints."""
+    # arrange
     raw_counts = {
         "active": "123",
         "new": "",
         "expired": "67",
     }
-    assert _process_manager_member_counts(raw_counts) == {
-        "active": 123,
-        "new": 0,
-        "expired": 67,
-    }
+    # act
+    counts = _process_manager_member_counts(raw_counts)
+    # assert
+    assert counts.active == 123
+    assert counts.new == 0
+    assert counts.expired == 67
 
 
 def test__process_manager_member_counts__blank_active_count_raises_exception() -> None:
     """Test that ValueError is raised if active is blank."""
+    # arrange
     raw_counts = {
         "active": "",
         "new": "8",
         "expired": "67",
     }
+    # act, assert
     with pytest.raises(ValueError):
         _process_manager_member_counts(raw_counts)
