@@ -22,18 +22,21 @@ administrators.
 ## Installation
 
 Install from PyPI, e.g:
-
-`pip install britishcycling-clubs`
+```shell
+pip install britishcycling-clubs
+```
 
 Some functions use [Playwright](https://playwright.dev/python/) to automate a headless Chromium browser. This needs
 to be installed separately before first use, and after most Playwright updates, e.g.:
-
-`playwright install chromium`
+```shell
+playwright install chromium
+```
 
 If you're installing in e.g. a bare-bones server/CI environment, you'll probably be 
 prompted to install system dependencies, which you can do with e.g.:
-
-`playwright install-deps chromium`
+```shell
+playwright install-deps chromium
+```
 
 See also https://playwright.dev/python/docs/browsers#install-system-dependencies
 
@@ -46,10 +49,10 @@ See also https://playwright.dev/python/docs/browsers#install-system-dependencies
 from britishcycling_clubs import get_profile_info
 get_profile_info(club_id="123")
 ```
-Returns a dict with these keys and values:
+Returns an instance of `ProfileInfo`, a `NamedTuple` with attributes:
 
-- `"club_name"`: Club name [str]
-- `"total_members"`: Total club members [int]
+- `club_name`: Club name [str]
+- `total_members`: Total club members [int]
 
 Example script `example_profile_info.py` loads club ID from `config.ini` (you'll
 need to copy `config_dist.ini`, populate club ID only and rename).
@@ -74,11 +77,11 @@ get_manager_member_counts(
     manager_page_load_delay=7,
 )
 ```
-Returns a dict with these keys and values:
+Returns an instance of `ManagerMemberCounts`, a `NamedTuple` with attributes:
 
-- `"active"`: count of 'Active Club Members' [int]
-- `"expired"`: count of 'Expired Club Members' [int]
-- `"new"`: count of 'New Club Subscriptions' i.e. pending members [int]
+- `active`: count of 'Active Club Members' [int]
+- `expired`: count of 'Expired Club Members' [int]
+- `new`: count of 'New Club Subscriptions' i.e. pending members [int]
 
 This takes about 10 s.
 
