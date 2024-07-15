@@ -44,5 +44,5 @@ def test__process_manager_member_counts__blank_active_count_raises_exception() -
         "expired": "67",
     }
     # act, assert
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="Active member count was zero"):
         _process_manager_member_counts(raw_counts)
