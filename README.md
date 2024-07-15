@@ -15,7 +15,8 @@ administrators.
 
 ## Prerequisites
 
-- Credentials for a club using the Club Management Tool
+- ID for a club
+- for Club Management Tool functions, valid user credentials
 
 
 ## Installation
@@ -39,66 +40,53 @@ See also https://playwright.dev/python/docs/browsers#install-system-dependencies
 
 ## Usage
 
-### Club profile URL
-
-```
-britishcycling_clubs.club_profile_url(
-    club_id: str
-) -> str
-```
-
 ### Get info from a club's profile
 
+```python
+britishcycling_clubs.get_profile_info(club_id="123")
 ```
-britishcycling_clubs.get_profile_info(
-    club_id: str
-) -> dict[str, int | str]
-```
-Return information from the club's public profile page; doesn't require login.
+Returns a dict with these keys and values:
 
-Specifically, return a dict with these keys and corresponding values:
-
-- `"club_name"`: Club name
-- `"total_members"`: Total club members
+- `"club_name"`: Club name [str]
+- `"total_members"`: Total club members [int]
 
 Example script `example_profile_info.py` loads club ID from `config.ini` (you'll
 need to copy `config_dist.ini`, populate club ID only and rename).
 It then retrieves and prints the club name and total member count.
 
 
-### Club manager URL (via login)
-
+### Construct club's profile URL
+```python
+britishcycling_clubs.club_profile_url(club_id="123")
 ```
-britishcycling_clubs.club_manager_url_via_login(
-    club_id: str
-) -> str
-```
-URL which redirects to Club Manager URL, via login if needed.
-
 
 ### Get member counts from Club Manager
-
-```
+```python
 britishcycling_clubs.get_manager_member_counts(
-    club_id: str,
-    username: str,
-    password: str,
-    manager_page_load_delay: int = 5,
-) -> dict[str, int]:
+    club_id="123",
+    username="USERNAME",
+    password="PASSWORD",
+    manager_page_load_delay=7,
+)
 ```
-Get numbers of active, new, expired members from the club manager page.
+Returns a dict with these keys and values:
 
-Specifically, return a dict with these keys, and values from badges on corresponding
-tabs:
+- `"active"`: count of 'Active Club Members' [int]
+- `"expired"`: count of 'Expired Club Members' [int]
+- `"new"`: count of 'New Club Subscriptions' i.e. pending members [int]
 
-- `"active"`: Active Club Members
-- `"expired"`: Expired Club Members
-- `"new"`: New Club Subscriptions
-
-This takes about 10s.
+This takes about 10 s.
 
 Example script `example_manager_member_counts.py` loads club ID and credentials from
 `config.ini` (you'll need to copy `config_dist.ini`, populate and rename to 
 `config.ini`).
 It then retrieves and prints the number of active, expired and new 
 club member counts from the club's Club Manager pages. 
+
+### Construct club's Club Manager URL (via login)
+```python
+britishcycling_clubs.club_manager_url_via_login(club_id=123)
+```
+Returns URL which redirects to Club Manager URL, via login if needed.
+
+

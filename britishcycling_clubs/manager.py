@@ -38,16 +38,16 @@ def get_manager_member_counts(
 
     Parameters
     ----------
-    club_id
+    club_id :
         From the URL used to access club pages.
 
-    username
+    username :
         Username
 
-    password
+    password :
         Password
 
-    manager_page_load_delay
+    manager_page_load_delay :
         Time (s) allowed for club manager page to load. Defaults to 5.
         Consider increasing if 'Active member count was zero' exceptions occur.
 
@@ -57,9 +57,9 @@ def get_manager_member_counts(
 
     Raises
     ------
-    `ValueError`
-        if zero 'active members' would be returned, as this probably means
-        values hadn't populated correctly.
+    `ValueError` :
+        if zero 'active members' would be returned, as it's assumed this indicates
+        an issue with data collection.
     """
     logger = logging.getLogger(__name__)
     start_time = time.time()
@@ -104,7 +104,7 @@ def club_manager_url_via_login(club_id: str) -> str:
 
     Parameters
     ----------
-    club_id
+    club_id :
         From the URL used to access club pages.
     """
     return f"{_MANAGER_VIA_LOGIN_BASE_URL}{club_id}/"
@@ -126,7 +126,7 @@ def _process_manager_member_counts(member_counts: dict[str, str]) -> MemberCount
     # 'new' will often be genuinely zero; 'expired' could be genuinely zero
     if processed_member_counts["active"] == 0:
         error_message = (
-            "Active member count was zero; assuming error. "
+            "Active member count was zero; assuming issue with data collection. "
             f"{pformat(processed_member_counts)}. "
             "Consider increasing `manager_page_load_delay`."
         )
