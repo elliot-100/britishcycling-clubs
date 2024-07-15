@@ -13,6 +13,7 @@ Historic and pre-release versions aren't necessarily included.
 
 - Only get logger once, rather than for every log message
 - Docs: docstring simplification, improvements
+- Dev dependencies: add pdoc
 
 
 ## [0.9.1] - 2024-07-13
