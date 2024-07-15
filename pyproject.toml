@@ -8,7 +8,7 @@ homepage = "https://github.com/elliot-100/britishcycling-clubs"
 repository = "https://github.com/elliot-100/britishcycling-clubs"
 packages = [{include = "britishcycling_clubs"}]
 include = ["CHANGELOG.md"]
-license = "GPL 3.0"
+license = "GPL-3.0-only"
 
 [tool.poetry.dependencies]
 python = ">=3.8"
