@@ -7,7 +7,7 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 
 Historic and pre-release versions aren't necessarily included.
 
-# UNRELEASED - TBC
+## [0.10.0] - 20204-07-15
 
 ### Changed
 
@@ -20,6 +20,7 @@ Historic and pre-release versions aren't necessarily included.
 - Only get logger once, rather than for every log message
 - Docs: docstring simplification, improvements
 - Dev dependencies: add pdoc
+- Linting/CI: tighten ruff config 
 
 
 ## [0.9.1] - 2024-07-13
@@ -203,6 +204,7 @@ Historic and pre-release versions aren't necessarily included.
 - Update dev dependencies: mypy, pylint, test, types-requests, types-beautifulsoup4
 
 
+[0.10.0]: https://github.com/elliot-100/britishcycling-clubs/compare/v0.9.1...v0.10.0
 [0.9.1]: https://github.com/elliot-100/britishcycling-clubs/compare/v0.9.0...v0.9.1
 [0.9.0]: https://github.com/elliot-100/britishcycling-clubs/compare/v0.8.1...v0.9.0
 [0.8.1]: https://github.com/elliot-100/britishcycling-clubs/compare/v0.8.0...v0.8.1
