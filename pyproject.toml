@@ -33,6 +33,9 @@ strict = true
 module = "playwright"
 disallow_untyped_calls = false
 
+[tool.ruff]
+target-version = "py38"  # Ruff doesn't respect Python version in [tool.poetry.dependencies]
+
 [tool.ruff.lint]
 select = ["ALL"]
 
