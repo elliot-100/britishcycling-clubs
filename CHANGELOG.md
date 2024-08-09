@@ -7,12 +7,13 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 
 Historic and pre-release versions aren't necessarily included.
 
-## [0.10.0] - 20204-07-15
+
+## [0.10.0] - 2024-07-15
 
 ### Changed
 
 - *BREAKING CHANGES:*
-  - `get_profile_info()` returns`ProfileInfo`  `NamedTuple` instead of dict 
+  - `get_profile_info()` returns`ProfileInfo` `NamedTuple` instead of dict 
   - `get_manager_member_counts()` returns `ManagerMemberCounts` `NamedTuple` 
     instead of dict
   - `club_manager_url_via_login()` renamed to `manager_url_via_login()`

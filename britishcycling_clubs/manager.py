@@ -54,7 +54,7 @@ def get_manager_member_counts(
 
     Raises
     ------
-    `ValueError` :
+    ValueError :
         if zero 'active members' would be returned, as it's assumed this indicates
         an issue with data collection.
     """
@@ -103,6 +103,12 @@ def manager_url_via_login(club_id: str) -> str:
     ----------
     club_id :
         From the URL used to access club pages.
+
+    Returns
+    -------
+    str
+        URL
+
     """
     return f"{_MANAGER_VIA_LOGIN_BASE_URL}{club_id}/"
 
