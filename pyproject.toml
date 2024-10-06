@@ -20,10 +20,10 @@ playwright = ">=1.39.0"
 ruff = "~0.9.5"
 
 [tool.poetry.group.test.dependencies]
-mypy = ">=1.11.1"
-pytest = ">=7.4.4"
-types-requests = ">=2.32.0"
-types-beautifulsoup4 = ">=4.12.0"
+mypy = "~1.14.1"
+pytest = "~8.3.4"
+types-requests = ">=2.23"  # match `requests` requirement
+types-beautifulsoup4 = ">=4.12"  # match `beautifulsoup4` requirement
 
 [tool.mypy]
 strict = true
