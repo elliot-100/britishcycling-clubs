@@ -8,6 +8,13 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 Historic and pre-release versions aren't necessarily included.
 
 
+## UNRELEASED - TBC
+
+### Added
+
+- CI: support Python 3.13
+
+
 ## [0.10.0] - 2024-07-15
 
 ### Changed
