@@ -13,6 +13,7 @@ Historic and pre-release versions aren't necessarily included.
 ### Changed
 
 - Rename `profile` module as it shadowed a Python built-in
+- Docs: docstring improvements
 - Update dev dependency: ruff, and its config
 
 ### Removed
