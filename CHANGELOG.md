@@ -8,6 +8,13 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 Historic and pre-release versions aren't necessarily included.
 
 
+## UNRELEASED - TBC
+
+### Changed
+
+- Docs: docstring fixes
+- Update dev dependencies: mypy, pdoc, pytest, ruff
+
 ## [0.10.0] - 2024-07-15
 
 ### Changed
