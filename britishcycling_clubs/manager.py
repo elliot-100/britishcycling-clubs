@@ -50,7 +50,7 @@ def get_manager_member_counts(
 
     Returns
     -------
-    `MemberCounts`
+    `ManagerMemberCounts`
 
     Raises
     ------
@@ -106,7 +106,7 @@ def manager_url_via_login(club_id: str) -> str:
 
     Returns
     -------
-    str
+    str :
         URL
 
     """

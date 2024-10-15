@@ -56,7 +56,7 @@ def profile_url(club_id: str) -> str:
 
     Returns
     -------
-    str
+    str :
         URL
     """
     return f"{_PROFILE_BASE_URL}{club_id}/"
