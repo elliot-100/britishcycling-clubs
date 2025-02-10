@@ -8,7 +8,7 @@ import logging
 import pprint
 from pathlib import Path
 
-from britishcycling_clubs import get_manager_member_counts
+from britishcycling_clubs import ManagerMemberCounts
 
 CONFIG_FILE = "config.ini"
 
@@ -21,9 +21,7 @@ config_filepath = Path(__file__).with_name(CONFIG_FILE)
 with Path.open(config_filepath, encoding="utf-8") as file:
     config.read_file(file)
 
-member_counts = get_manager_member_counts(
-    config["club"]["id"],
-    config["club"]["username"],
-    config["club"]["password"],
+member_counts = ManagerMemberCounts.extract(
+    config["club"]["id"], config["club"]["username"], config["club"]["password"]
 )
 pprint.pprint(member_counts)

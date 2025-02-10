@@ -46,10 +46,10 @@ See also https://playwright.dev/python/docs/browsers#install-system-dependencies
 ### Get info from a club's profile
 
 ```python
-from britishcycling_clubs import get_profile_info
-get_profile_info(club_id="123")
+from britishcycling_clubs import ProfileInfo
+ProfileInfo.extract(club_id="123")
 ```
-Returns an instance of `ProfileInfo`, a `NamedTuple` with attributes:
+Returns a `ProfileInfo` instance with attributes:
 
 - `club_name`: Club name [str]
 - `total_members`: Total club members [int]
@@ -69,15 +69,15 @@ profile_url(club_id="123")
 ### Get member counts from Club Manager
 
 ```python
-from britishcycling_clubs import get_manager_member_counts
-get_manager_member_counts(
+from britishcycling_clubs import ManagerMemberCounts
+ManagerMemberCounts.extract(
     club_id="123",
     username="USERNAME",
     password="PASSWORD",
     manager_page_load_delay=7,
 )
 ```
-Returns an instance of `ManagerMemberCounts`, a `NamedTuple` with attributes:
+Returns a `ManagerMemberCounts` instance with attributes:
 
 - `active`: count of 'Active Club Members' [int]
 - `expired`: count of 'Expired Club Members' [int]

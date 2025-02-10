@@ -42,8 +42,6 @@ ignore = [
     # Rules that conflict with Ruff formatter:
     "COM812",  # Trailing comma missing
     "ISC001",  # Implicitly concatenated string literals on one line
-    # Other:
-    "RUF022",  # `__all__` is not sorted
     ]
 
 [tool.ruff.lint.per-file-ignores]
@@ -51,6 +49,7 @@ ignore = [
 "**/{tests}/*" = [
     "PLR2004",  # Magic value used in comparison
     "S101",  # Use of assert detected
+    "SLF001",  # Private member accessed
     ]
 # Rules that aren't relevant/useful in example scripts:
 "example*.py" = [

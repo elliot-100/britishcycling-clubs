@@ -3,7 +3,7 @@
 import pytest
 
 from britishcycling_clubs import manager_url_via_login
-from britishcycling_clubs.manager import _process_manager_member_counts
+from britishcycling_clubs.manager import ManagerMemberCounts
 
 
 def test_club_manager_url_via_login__happy_path() -> None:
@@ -28,7 +28,7 @@ def test__process_manager_member_counts__happy_path() -> None:
         "expired": "67",
     }
     # act
-    counts = _process_manager_member_counts(raw_counts)
+    counts = ManagerMemberCounts._process_manager_member_counts(raw_counts)
     # assert
     assert counts.active == 123
     assert counts.new == 0
@@ -45,4 +45,4 @@ def test__process_manager_member_counts__blank_active_count_raises_exception() -
     }
     # act, assert
     with pytest.raises(ValueError, match="Active member count was zero"):
-        _process_manager_member_counts(raw_counts)
+        ManagerMemberCounts._process_manager_member_counts(raw_counts)

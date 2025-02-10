@@ -1,49 +1,13 @@
 """Functions to get information from a club's profile page."""
 
-from typing import NamedTuple
+from dataclasses import dataclass
+from typing import Self
 
 import requests
 from bs4 import BeautifulSoup, Tag
 
 _PROFILE_BASE_URL = "https://www.britishcycling.org.uk/club/profile/"
 _REQUESTS_TIMEOUT = 10  # For `requests` library operations
-
-
-class ProfileInfo(NamedTuple):
-    """Returned by `get_profile_info()` function."""
-
-    club_name: str
-    total_members: int
-
-
-def get_profile_info(club_id: str) -> ProfileInfo:
-    """Return information from the club's public profile page.
-
-    Parameters
-    ----------
-    club_id
-        From the URL used to access club pages.
-
-    Returns
-    -------
-    `ProfileInfo`
-
-    Raises
-    ------
-    ValueError
-        if information can't be located.
-    """
-    url = profile_url(club_id)
-    r = requests.get(url, timeout=_REQUESTS_TIMEOUT)
-    r.raise_for_status()
-    if r.url != url:
-        error_message = f"Redirected to unexpected URL {r.url}. Is `club_id` valid?"
-        raise ValueError(error_message)
-    profile_soup = BeautifulSoup(r.content, "html.parser")
-    return ProfileInfo(
-        club_name=_club_name_from_profile(profile_soup),
-        total_members=_total_members_from_profile(profile_soup),
-    )
 
 
 def profile_url(club_id: str) -> str:
@@ -100,3 +64,41 @@ def _total_members_from_profile(soup: BeautifulSoup) -> int:
 
     strings = list(member_count_label_outer2.strings)
     return int(strings[-1])
+
+
+@dataclass
+class ProfileInfo:
+    """Returned by `get_profile_info()` function."""
+
+    club_name: str
+    total_members: int
+
+    @classmethod
+    def extract(cls, club_id: str) -> Self:
+        """Return information from the club's public profile page.
+
+        Parameters
+        ----------
+        club_id
+            From the URL used to access club pages.
+
+        Returns
+        -------
+        `ProfileInfo`
+
+        Raises
+        ------
+        ValueError
+            if information can't be located.
+        """
+        url = profile_url(club_id)
+        r = requests.get(url, timeout=_REQUESTS_TIMEOUT)
+        r.raise_for_status()
+        if r.url != url:
+            error_message = f"Redirected to unexpected URL {r.url}. Is `club_id` valid?"
+            raise ValueError(error_message)
+        profile_soup = BeautifulSoup(r.content, "html.parser")
+        return cls(
+            club_name=_club_name_from_profile(profile_soup),
+            total_members=_total_members_from_profile(profile_soup),
+        )
