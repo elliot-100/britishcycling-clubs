@@ -5,7 +5,7 @@ from britishcycling_clubs.manager import (
     get_manager_member_counts,
     manager_url_via_login,
 )
-from britishcycling_clubs.profile import (
+from britishcycling_clubs.profile_ import (
     ProfileInfo,
     get_profile_info,
     profile_url,
