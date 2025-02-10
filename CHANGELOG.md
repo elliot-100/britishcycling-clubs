@@ -13,6 +13,11 @@ Historic and pre-release versions aren't necessarily included.
 ### Changed
 
 - Rename `profile` module as it shadowed a Python built-in
+- Update dev dependency: ruff, and its config
+
+### Removed
+
+- Remove unused dev dependency: pdoc 
 
 
 ## [0.11.0] - 2024-10-23
