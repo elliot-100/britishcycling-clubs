@@ -62,22 +62,23 @@ It then retrieves and prints the club name and total member count.
 ### Construct club's profile URL
 
 ```python
-from britishcycling_clubs import profile_url
-profile_url(club_id="123")
+from britishcycling_clubs import ProfileInfo
+ProfileInfo.url(club_id="123")
 ```
 
 ### Get member counts from Club Manager
 
 ```python
-from britishcycling_clubs import ManagerMemberCounts
-ManagerMemberCounts.extract(
+from britishcycling_clubs import ManagerInfo
+
+ManagerInfo.extract(
     club_id="123",
     username="USERNAME",
     password="PASSWORD",
     manager_page_load_delay=7,
 )
 ```
-Returns a `ManagerMemberCounts` instance with attributes:
+Returns a `ManagerInfo` instance with attributes:
 
 - `active`: count of 'Active Club Members' [int]
 - `expired`: count of 'Expired Club Members' [int]
@@ -94,8 +95,8 @@ club member counts from the club's Club Manager pages.
 ### Construct club's Club Manager URL (via login)
 
 ```python
-from britishcycling_clubs import manager_url_via_login
-manager_url_via_login(club_id="123")
+from britishcycling_clubs import ManagerInfo
+ManagerInfo.url_via_login(club_id="123")
 ```
 Returns URL which redirects to Club Manager URL, via login if needed.
 

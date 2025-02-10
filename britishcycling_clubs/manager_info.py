@@ -13,23 +13,6 @@ from playwright.sync_api import sync_playwright
 _MANAGER_VIA_LOGIN_BASE_URL = "https://www.britishcycling.org.uk/uac/connect?success_url=/dashboard/club/membership?club_id="
 
 
-def manager_url_via_login(club_id: str) -> str:
-    """Return URL of club's Club Manager page.
-
-    Parameters
-    ----------
-    club_id
-        From the URL used to access club pages.
-
-    Returns
-    -------
-    str
-        URL
-
-    """
-    return f"{_MANAGER_VIA_LOGIN_BASE_URL}{club_id}/"
-
-
 def _log_info(logger: logging.Logger, message: str, start_time: float) -> None:
     """Add log entry, with elapsed time since `start_time`."""
     elapsed_time = time.time() - start_time
@@ -38,7 +21,7 @@ def _log_info(logger: logging.Logger, message: str, start_time: float) -> None:
 
 
 @dataclass
-class ManagerMemberCounts:
+class ManagerInfo:
     """Returned by `get_manager_member_counts()` function."""
 
     active: int
@@ -77,7 +60,7 @@ class ManagerMemberCounts:
 
         Returns
         -------
-        `ManagerMemberCounts`
+        `ManagerInfo`
 
         Raises
         ------
@@ -95,7 +78,7 @@ class ManagerMemberCounts:
             page = browser.new_page()
 
             # login page
-            page.goto(manager_url_via_login(club_id))
+            page.goto(cls.url_via_login(club_id))
             page.locator("id=username2").fill(username)
             page.locator("id=password2").fill(password)
             page.locator("id=login_button").click()
@@ -121,6 +104,23 @@ class ManagerMemberCounts:
             _log_info(logger, "Closed browser", start_time)
 
         return cls._process_manager_member_counts(raw_member_counts)
+
+    @staticmethod
+    def url_via_login(club_id: str) -> str:
+        """Return URL of club's Club Manager page.
+
+        Parameters
+        ----------
+        club_id
+            From the URL used to access club pages.
+
+        Returns
+        -------
+        str
+            URL
+
+        """
+        return f"{_MANAGER_VIA_LOGIN_BASE_URL}{club_id}/"
 
     @classmethod
     def _process_manager_member_counts(cls, counts: dict[str, str]) -> Self:

@@ -10,22 +10,6 @@ _PROFILE_BASE_URL = "https://www.britishcycling.org.uk/club/profile/"
 _REQUESTS_TIMEOUT = 10  # For `requests` library operations
 
 
-def profile_url(club_id: str) -> str:
-    """Return URL of club's profile page.
-
-    Parameters
-    ----------
-    club_id
-        From the URL used to access club pages.
-
-    Returns
-    -------
-    str
-        URL
-    """
-    return f"{_PROFILE_BASE_URL}{club_id}/"
-
-
 def _club_name_from_profile(soup: BeautifulSoup) -> str:
     """Return the club's name from profile page soup."""
     club_name_h1 = soup.find("h1", class_="article__header__title-body__text")
@@ -91,7 +75,7 @@ class ProfileInfo:
         ValueError
             if information can't be located.
         """
-        url = profile_url(club_id)
+        url = cls.url(club_id)
         r = requests.get(url, timeout=_REQUESTS_TIMEOUT)
         r.raise_for_status()
         if r.url != url:
@@ -102,3 +86,19 @@ class ProfileInfo:
             club_name=_club_name_from_profile(profile_soup),
             total_members=_total_members_from_profile(profile_soup),
         )
+
+    @staticmethod
+    def url(club_id: str) -> str:
+        """Return URL of club's profile page.
+
+        Parameters
+        ----------
+        club_id
+            From the URL used to access club pages.
+
+        Returns
+        -------
+        str
+            URL
+        """
+        return f"{_PROFILE_BASE_URL}{club_id}/"
