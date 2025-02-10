@@ -21,7 +21,7 @@ def get_profile_info(club_id: str) -> ProfileInfo:
 
     Parameters
     ----------
-    club_id :
+    club_id
         From the URL used to access club pages.
 
     Returns
@@ -30,7 +30,7 @@ def get_profile_info(club_id: str) -> ProfileInfo:
 
     Raises
     ------
-    ValueError :
+    ValueError
         if information can't be located.
     """
     url = profile_url(club_id)
@@ -51,12 +51,12 @@ def profile_url(club_id: str) -> str:
 
     Parameters
     ----------
-    club_id :
+    club_id
         From the URL used to access club pages.
 
     Returns
     -------
-    str :
+    str
         URL
     """
     return f"{_PROFILE_BASE_URL}{club_id}/"

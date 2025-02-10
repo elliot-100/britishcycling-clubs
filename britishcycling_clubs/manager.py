@@ -35,16 +35,16 @@ def get_manager_member_counts(
 
     Parameters
     ----------
-    club_id :
+    club_id
         From the URL used to access club pages.
 
-    username :
+    username
         Username
 
-    password :
+    password
         Password
 
-    manager_page_load_delay :
+    manager_page_load_delay
         Time (s) allowed for club manager page to load. Defaults to 5.
         Consider increasing if 'Active member count was zero' exceptions occur.
 
@@ -54,8 +54,8 @@ def get_manager_member_counts(
 
     Raises
     ------
-    ValueError :
-        if zero 'active members' would be returned, as it's assumed this indicates
+    ValueError
+        if zero 'active' members would be returned, as it's assumed this indicates
         an issue with data collection.
     """
     logger = logging.getLogger(__name__)
@@ -101,12 +101,12 @@ def manager_url_via_login(club_id: str) -> str:
 
     Parameters
     ----------
-    club_id :
+    club_id
         From the URL used to access club pages.
 
     Returns
     -------
-    str :
+    str
         URL
 
     """
