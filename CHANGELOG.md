@@ -17,7 +17,8 @@ Historic and pre-release versions aren't necessarily included.
 
 ### Removed
 
-- Remove unused dev dependency: pdoc 
+- Support for Python 3.8
+- Unused dev dependency: pdoc 
 
 
 ## [0.11.0] - 2024-10-23
@@ -30,6 +31,7 @@ Historic and pre-release versions aren't necessarily included.
 
 - Docs: docstring fixes
 - Update dev dependencies: mypy, pdoc, pytest, ruff
+
 
 ## [0.10.0] - 2024-07-15
 
